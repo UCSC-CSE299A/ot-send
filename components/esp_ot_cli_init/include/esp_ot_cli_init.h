@@ -25,6 +25,6 @@
 #include "openthread/tasklet.h"
 
 
-void ot_task_worker(void *aContext);
+void ot_cli_task_worker(void *aContext);
 
 #endif // ESP_OT_INIT_
