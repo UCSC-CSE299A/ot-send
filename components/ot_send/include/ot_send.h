@@ -26,6 +26,6 @@
 #include "openthread/tasklet.h"
 
 
-void ot_cli_task_worker(void *aContext);
+void ot_send_task_worker(void *aContext);
 
 #endif // ESP_OT_SEND_
