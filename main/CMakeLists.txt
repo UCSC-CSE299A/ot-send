@@ -1,3 +1,3 @@
-idf_component_register(SRCS "esp_ot_cli.c"
+idf_component_register(SRCS "main.c"
                        INCLUDE_DIRS "."
                        PRIV_REQUIRES "esp_ot_cli_init")
