@@ -1,6 +1,7 @@
-#ifndef ESP_OT_SEND_
-#define ESP_OT_SEND_
+#ifndef OT_SEND_
+#define OT_SEND_
 
+#include "esp_ot_config.h"
 #include "ot_send.h"
 
 #include "esp_err.h"
