@@ -1,6 +1,8 @@
 #include "esp_ot_init.h"
 
+#if CONFIG_OPENTHREAD_CLI_ESP_EXTENSION
 #include "esp_ot_cli_extension.h"
+#endif // CONFIG_OPENTHREAD_CLI_ESP_EXTENSION
 
 static esp_netif_t *init_openthread_netif(const esp_openthread_platform_config_t *config)
 {

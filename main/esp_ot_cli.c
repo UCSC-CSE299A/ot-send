@@ -18,10 +18,6 @@
 
 #include "esp_ot_init.h"
 
-#if CONFIG_OPENTHREAD_CLI_ESP_EXTENSION
-#include "esp_ot_cli_extension.h"
-#endif // CONFIG_OPENTHREAD_CLI_ESP_EXTENSION
-
 #define TAG "ot_esp_cli"
 
 void app_main(void)
