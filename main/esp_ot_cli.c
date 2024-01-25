@@ -16,7 +16,7 @@
 #include <unistd.h>
 #include <string.h>
 
-#include "esp_ot_init.h"
+#include "esp_ot_cli_init.h"
 
 #define TAG "ot_esp_cli"
 

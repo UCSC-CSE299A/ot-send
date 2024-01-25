@@ -1,4 +1,4 @@
-#include "esp_ot_init.h"
+#include "esp_ot_cli_init.h"
 
 #if CONFIG_OPENTHREAD_CLI_ESP_EXTENSION
 #include "esp_ot_cli_extension.h"
