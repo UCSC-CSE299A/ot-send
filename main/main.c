@@ -16,9 +16,7 @@
 #include <unistd.h>
 #include <string.h>
 
-#include "esp_ot_cli_init.h"
-
-#define TAG "ot_esp_cli"
+#include "ot_send.h"
 
 void app_main(void)
 {

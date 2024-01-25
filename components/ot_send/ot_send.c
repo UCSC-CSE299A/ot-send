@@ -1,9 +1,5 @@
 #include "ot_send.h"
 
-#if CONFIG_OPENTHREAD_CLI_ESP_EXTENSION
-#include "esp_ot_cli_extension.h"
-#endif // CONFIG_OPENTHREAD_CLI_ESP_EXTENSION
-
 static esp_netif_t *init_openthread_netif(const esp_openthread_platform_config_t *config)
 {
     esp_netif_config_t cfg = ESP_NETIF_DEFAULT_OPENTHREAD();
@@ -29,24 +25,13 @@ void ot_cli_task_worker(void *aContext)
     // The OpenThread log level directly matches ESP log level
     (void)otLoggingSetLevel(CONFIG_LOG_DEFAULT_LEVEL);
 #endif
-    // Initialize the OpenThread cli
-#if CONFIG_OPENTHREAD_CLI
-    esp_openthread_cli_init();
-#endif
 
     esp_netif_t *openthread_netif;
     // Initialize the esp_netif bindings
     openthread_netif = init_openthread_netif(&config);
     esp_netif_set_default_netif(openthread_netif);
 
-#if CONFIG_OPENTHREAD_CLI_ESP_EXTENSION
-    esp_cli_custom_command_init();
-#endif // CONFIG_OPENTHREAD_CLI_ESP_EXTENSION
-
     // Run the main loop
-#if CONFIG_OPENTHREAD_CLI
-    esp_openthread_cli_create_task();
-#endif
 #if CONFIG_OPENTHREAD_AUTO_START
     otOperationalDatasetTlvs dataset;
     otError error = otDatasetGetActiveTlvs(esp_openthread_get_instance(), &dataset);
