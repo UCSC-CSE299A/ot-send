@@ -26,6 +26,9 @@
 #include "openthread/tasklet.h"
 
 
-void ot_send_task_worker(void *aContext);
+/**
+ * Creates a worker thread running OpenThread.
+*/
+void ot_task_worker(void *aContext);
 
 #endif // ESP_OT_SEND_

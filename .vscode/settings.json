@@ -38,6 +38,7 @@
     "esp_openthread_types.h": "c",
     "esp_ot_cli_init.h": "c",
     "ot_send.h": "c",
-    "esp_event.h": "c"
+    "esp_event.h": "c",
+    "uart_types.h": "c"
   }
 }
