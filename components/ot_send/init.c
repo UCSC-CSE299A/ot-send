@@ -37,6 +37,11 @@ void ot_task_worker(void *aContext)
     esp_netif_set_default_netif(openthread_netif);
 
     // Run the main loop
+    /**
+     * @todo
+     *  Rewrite the joiner code with hardcoded dataset information to ensure
+     *  that devices are always able to join the Thread WLAN programmatically.
+    */
 #if CONFIG_OPENTHREAD_AUTO_START
     otOperationalDatasetTlvs dataset;
     otError error = otDatasetGetActiveTlvs(esp_openthread_get_instance(), &dataset);
