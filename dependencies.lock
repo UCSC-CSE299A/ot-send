@@ -17,5 +17,5 @@ dependencies:
       type: local
     version: '*'
 manifest_hash: 9027fff5e8d4c7d831c4c15ba3405f93eefa2fb305ffae1ae2b4850e2cda4688
-target: esp32
+target: esp32h2
 version: 1.0.0
