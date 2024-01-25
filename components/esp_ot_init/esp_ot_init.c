@@ -1,5 +1,7 @@
 #include "esp_ot_init.h"
 
+#include "esp_ot_cli_extension.h"
+
 static esp_netif_t *init_openthread_netif(const esp_openthread_platform_config_t *config)
 {
     esp_netif_config_t cfg = ESP_NETIF_DEFAULT_OPENTHREAD();
@@ -10,7 +12,7 @@ static esp_netif_t *init_openthread_netif(const esp_openthread_platform_config_t
     return netif;
 }
 
-static void ot_task_worker(void *aContext)
+void ot_task_worker(void *aContext)
 {
     esp_openthread_platform_config_t config = {
         .radio_config = ESP_OPENTHREAD_DEFAULT_RADIO_CONFIG(),

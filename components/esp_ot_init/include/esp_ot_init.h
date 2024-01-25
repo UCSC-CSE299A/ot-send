@@ -1,6 +1,8 @@
 #ifndef ESP_OT_INIT_
 #define ESP_OT_INIT_
 
+#include "esp_ot_config.h"
+
 #include "esp_err.h"
 #include "esp_event.h"
 #include "esp_log.h"
@@ -11,7 +13,6 @@
 #include "esp_openthread_lock.h"
 #include "esp_openthread_netif_glue.h"
 #include "esp_openthread_types.h"
-#include "esp_ot_config.h"
 #include "esp_vfs_eventfd.h"
 #include "driver/uart.h"
 #include "freertos/FreeRTOS.h"
@@ -24,6 +25,6 @@
 #include "openthread/tasklet.h"
 
 
-static void ot_task_worker(void *aContext);
+void ot_task_worker(void *aContext);
 
 #endif // ESP_OT_INIT_

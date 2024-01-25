@@ -33,6 +33,8 @@
     "esp_ot_config.h": "c",
     "instance.h": "c",
     "nvs_flash.h": "c",
-    "tasklet.h": "c"
+    "tasklet.h": "c",
+    "esp_openthread.h": "c",
+    "esp_openthread_types.h": "c"
   }
 }
