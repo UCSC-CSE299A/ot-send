@@ -1,6 +1,7 @@
 #include "ot_send.h"
 
 #include <openthread/ping_sender.h>
+#include <openthread/logging.h>
 
 /**
  * @file
@@ -37,15 +38,26 @@
 #define MLEID "fdc2:53d3:bb7e:2437:114d:c3da:9918:d5e4"
 
 /**
+ * @param
+ *  The pointer to the `otNetifAddress` object returned from
+ *  `otIp6GetUnicastAddresses()`.
+ *
+ * @return
+ *  The MLEID address for the currently running device.
+*/
+otNetifAddress otIp6GetMleid(otNetifAddress *firstUnicast, char *aBuffer) {
+  otIp6AddressToString(firstUnicast, aBuffer, OT_IP6_SOCK_ADDR_STRING_SIZE);
+  return;
+}
+
+/**
  *
 */
 void ping(otInstance *aInstance) {
-  otPingSenderConfig config;
+  char* aBuffer = calloc(1, OT_IP6_SOCK_ADDR_STRING_SIZE);
+  otNetifAddress *firstUnicast = otIp6GetUnicastAddresses(aInstance);
 
-  otIp6Address source;
-
-  otIp6Address destination;
-  otIp6AddressFromString(MLEID, &destination);
-
+  otIp6GetMleid(firstUnicast, aBuffer);
+  otLogNotePlat("%s", aBuffer);
   return;
 };

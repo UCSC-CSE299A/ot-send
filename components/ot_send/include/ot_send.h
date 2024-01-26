@@ -28,7 +28,18 @@
 
 /**
  * Creates a worker thread running OpenThread.
+ *
+ * @param 
+ *  A pointer to the application layer context `aContext`.
 */
 void ot_task_worker(void *aContext);
+
+/**
+ * Sends ICMP "ping" packets to the Thread border router.
+ *
+ * @param
+ *  A pointer to the current OpenThread instance `aInstance`.
+*/
+void ping(otInstance *aInstance);
 
 #endif // ESP_OT_SEND_
