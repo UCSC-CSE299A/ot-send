@@ -15,10 +15,7 @@ void start_ping(otInstance *aInstance) {
   do {
     currentRole = otThreadGetDeviceRole(aInstance);
     vTaskDelay(DEFAULT_WAIT_TIME);
-  } while(
-    (currentRole == OT_DEVICE_ROLE_DISABLED) ||
-    (currentRole == OT_DEVICE_ROLE_DETACHED)
-  );
+  } while(OT_DISCONNECTED(currentRole));
 
   ping(aInstance);
   return;

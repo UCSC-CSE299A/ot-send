@@ -33,6 +33,8 @@
 
 #define DEFAULT_WAIT_TIME 100 / portTICK_PERIOD_MS // 100 ms 
 
+#define OT_DISCONNECTED(role) (role == OT_DEVICE_ROLE_DISABLED) || (role == OT_DEVICE_ROLE_DETACHED)
+
 /**
  * Creates a worker thread running OpenThread.
  *
