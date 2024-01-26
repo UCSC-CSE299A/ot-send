@@ -4,6 +4,7 @@
 #include <openthread/logging.h>
 
 #define DEBUG true
+#define DELIMITER "************************************"
 
 /**
  * @file
@@ -48,6 +49,17 @@ void ping(otInstance *aInstance) {
   otNetifAddress netifDst;
   otIp6AddressFromString(MLEID, &(netifDst.mAddress));
 
+#if DEBUG
+  char* aBuffer = calloc(1, OT_IP6_ADDRESS_STRING_SIZE);
+  otIp6AddressToString(&(netifDst.mAddress), aBuffer, OT_IP6_ADDRESS_STRING_SIZE);
+
+  otLogNotePlat(DELIMITER);
+  otLogNotePlat("The destination address is %s", aBuffer);
+  otLogNotePlat(DELIMITER);
+
+  free(aBuffer);
+#endif // DEBUG
+
   aConfig.mTimeout = 100; // ms
   aConfig.mMulticastLoop = false;
 
@@ -62,5 +74,11 @@ void ping(otInstance *aInstance) {
   aConfig.mHopLimit = 0;
 
   otPingSenderPing(aInstance, &aConfig);
+
+#if DEBUG
+  otLogNotePlat(DELIMITER);
+  otLogNotePlat("Sent ping!");
+  otLogNotePlat(DELIMITER);
+#endif // DEBUG
   return;
 };
