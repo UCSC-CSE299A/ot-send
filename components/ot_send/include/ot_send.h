@@ -25,6 +25,12 @@
 #include "openthread/logging.h"
 #include "openthread/tasklet.h"
 
+#define DEBUG true
+#define DELIMITER "************************************"
+#define PRINT_DELIMIER otLogNotePlat(DELIMITER)
+#define DEBUG_PRINT(ot_note) PRINT_DELIMIER; ot_note; PRINT_DELIMIER;
+
+#define DEFAULT_WAIT_TIME 1000 / portTICK_PERIOD_MS // 1 second 
 
 /**
  * Creates a worker thread running OpenThread.

@@ -1,14 +1,8 @@
 #include "ot_send.h"
 
 #include <openthread/ping_sender.h>
-#include <openthread/logging.h>
 
-#define DEBUG true
-#define DELIMITER "************************************"
-#define PRINT_DELIMIER otLogNotePlat(DELIMITER)
-#define DEBUG_PRINT(ot_note) PRINT_DELIMIER; ot_note; PRINT_DELIMIER;
-
-/**x
+/**
  * @file
  *  This file defines the functions used for the sender to send
  *  packets to a given destination, at repeated intervals.

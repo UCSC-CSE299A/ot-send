@@ -18,8 +18,6 @@
 
 #include "ot_send.h"
 
-#define DEFAULT_WAIT_TIME 1000 / portTICK_PERIOD_MS // 1 second 
-
 void app_main(void)
 {
     // Used eventfds:
@@ -38,8 +36,6 @@ void app_main(void)
 
     otInstance *instance = esp_openthread_get_instance();
   
-    esp_openthread_lock_acquire(DEFAULT_WAIT_TIME);
     ping(instance);
-    esp_openthread_lock_release();
     return;
 }
