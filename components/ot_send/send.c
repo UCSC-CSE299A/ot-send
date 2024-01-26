@@ -5,8 +5,10 @@
 
 #define DEBUG true
 #define DELIMITER "************************************"
+#define PRINT_DELIMIER otLogNotePlat(DELIMITER)
+#define DEBUG_PRINT(ot_note) PRINT_DELIMIER; ot_note; PRINT_DELIMIER;
 
-/**
+/**x
  * @file
  *  This file defines the functions used for the sender to send
  *  packets to a given destination, at repeated intervals.
@@ -53,9 +55,9 @@ void ping(otInstance *aInstance) {
   char* aBuffer = calloc(1, OT_IP6_ADDRESS_STRING_SIZE);
   otIp6AddressToString(&(netifDst.mAddress), aBuffer, OT_IP6_ADDRESS_STRING_SIZE);
 
-  otLogNotePlat(DELIMITER);
-  otLogNotePlat("The destination address is %s", aBuffer);
-  otLogNotePlat(DELIMITER);
+  DEBUG_PRINT(
+    otLogNotePlat("The destination address is %s", aBuffer)
+  );
 
   free(aBuffer);
 #endif // DEBUG
@@ -76,9 +78,9 @@ void ping(otInstance *aInstance) {
   otPingSenderPing(aInstance, &aConfig);
 
 #if DEBUG
-  otLogNotePlat(DELIMITER);
-  otLogNotePlat("Sent ping!");
-  otLogNotePlat(DELIMITER);
+  DEBUG_PRINT(
+    otLogNotePlat("Sent ping!")
+  );
 #endif // DEBUG
   return;
 };
