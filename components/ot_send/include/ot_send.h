@@ -42,6 +42,15 @@
 void ot_task_worker(void *aContext);
 
 /**
+ * Waits until the device is successfully connected into the Thread
+ * WLAN before calling `ping()`.
+ *
+ * @param
+ *  A pointer to the currrent OpenThread instance `aInstance`.
+*/
+void start_ping(otInstance *aInstance);
+
+/**
  * Sends ICMP "ping" packets to the Thread border router.
  *
  * @param

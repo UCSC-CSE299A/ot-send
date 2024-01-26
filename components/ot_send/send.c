@@ -10,6 +10,20 @@
 
 #define MLEID "fdc2:53d3:bb7e:2437:114d:c3da:9918:d5e4"
 
+void start_ping(otInstance *aInstance) {
+  otDeviceRole currentRole;
+  do {
+    currentRole = otThreadGetDeviceRole(aInstance);
+    vTaskDelay(DEFAULT_WAIT_TIME);
+  } while(
+    (currentRole == OT_DEVICE_ROLE_DISABLED) ||
+    (currentRole == OT_DEVICE_ROLE_DETACHED)
+  );
+
+  ping(aInstance);
+  return;
+}
+
 void ping(otInstance *aInstance) {
   otPingSenderConfig aConfig;
 
