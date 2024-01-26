@@ -8,34 +8,19 @@
  *  packets to a given destination, at repeated intervals.
 */
 
-/**
- *
-*/
-void setSourceMleid(otInstance *aInstance, otPingSenderConfig *aConfig) {
-  const otIp6Address *mleid = NULL;
-  while (mleid == NULL) {
-    mleid = otThreadGetMeshLocalEid(aInstance);
-    vTaskDelay(DEFAULT_WAIT_TIME);
-  }
-
-  aConfig->mSource = *mleid;
-  return;
-}
-
 #define MLEID "fdc2:53d3:bb7e:2437:114d:c3da:9918:d5e4"
 
 void ping(otInstance *aInstance) {
   otPingSenderConfig aConfig;
 
-  setSourceMleid(aInstance, &(aConfig));
+  aConfig.mSource = *otThreadGetMeshLocalEid(aInstance);
 
-  otNetifAddress netifDst;
-  otIp6AddressFromString(MLEID, &(netifDst.mAddress));
+  otIp6Address *destAddr = &(aConfig.mDestination);
+  otIp6AddressFromString(MLEID, destAddr);
 
 #if DEBUG
   char* aBuffer = calloc(1, OT_IP6_ADDRESS_STRING_SIZE);
-  otIp6AddressToString(&(netifDst.mAddress), aBuffer, OT_IP6_ADDRESS_STRING_SIZE);
-
+  otIp6AddressToString(&(aConfig.mDestination), aBuffer, OT_IP6_ADDRESS_STRING_SIZE);
   DEBUG_PRINT(
     otLogNotePlat("The destination address is %s", aBuffer)
   );
