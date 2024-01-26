@@ -31,6 +31,6 @@ void ping(otInstance *aInstance) {
   aConfig.mTimeout = 100; // ms
   aConfig.mHopLimit = 0;
 
-  PRINT_ERROR(otPingSenderPing(aInstance, &aConfig));
+  ESP_ERROR_CHECK(otPingSenderPing(aInstance, &aConfig));
   return;
 };
