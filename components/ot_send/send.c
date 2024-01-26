@@ -18,16 +18,6 @@ void ping(otInstance *aInstance) {
   otIp6Address *destAddr = &(aConfig.mDestination);
   otIp6AddressFromString(MLEID, destAddr);
 
-#if DEBUG
-  char* aBuffer = calloc(1, OT_IP6_ADDRESS_STRING_SIZE);
-  otIp6AddressToString(&(aConfig.mDestination), aBuffer, OT_IP6_ADDRESS_STRING_SIZE);
-  DEBUG_PRINT(
-    otLogNotePlat("The destination address is %s", aBuffer)
-  );
-
-  free(aBuffer);
-#endif // DEBUG
-
   aConfig.mTimeout = 100; // ms
   aConfig.mMulticastLoop = true;
 
@@ -42,11 +32,5 @@ void ping(otInstance *aInstance) {
   aConfig.mHopLimit = 0;
 
   PRINT_ERROR(otPingSenderPing(aInstance, &aConfig));
-
-#if DEBUG
-  DEBUG_PRINT(
-    otLogNotePlat("Sent ping!")
-  );
-#endif // DEBUG
   return;
 };
