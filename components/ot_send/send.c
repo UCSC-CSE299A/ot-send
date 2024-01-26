@@ -45,8 +45,9 @@
  * @return
  *  The MLEID address for the currently running device.
 */
-otNetifAddress otIp6GetMleid(otNetifAddress *firstUnicast, char *aBuffer) {
-  otIp6AddressToString(firstUnicast, aBuffer, OT_IP6_SOCK_ADDR_STRING_SIZE);
+void otIp6GetMleid(const otNetifAddress *firstUnicast, char *aBuffer) {
+  otIp6AddressToString(&(firstUnicast->mAddress), aBuffer,
+    OT_IP6_SOCK_ADDR_STRING_SIZE);
   return;
 }
 
@@ -55,9 +56,9 @@ otNetifAddress otIp6GetMleid(otNetifAddress *firstUnicast, char *aBuffer) {
 */
 void ping(otInstance *aInstance) {
   char* aBuffer = calloc(1, OT_IP6_SOCK_ADDR_STRING_SIZE);
-  otNetifAddress *firstUnicast = otIp6GetUnicastAddresses(aInstance);
+  const otNetifAddress *firstUnicast = otIp6GetUnicastAddresses(aInstance);
 
   otIp6GetMleid(firstUnicast, aBuffer);
-  otLogNotePlat("%s", aBuffer);
+  otLogNotePlat("The first unicast address is %s.", aBuffer);
   return;
 };
