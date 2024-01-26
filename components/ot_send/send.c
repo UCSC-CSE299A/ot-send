@@ -39,43 +39,28 @@
 
 #define MLEID "fdc2:53d3:bb7e:2437:114d:c3da:9918:d5e4"
 
-/**
- * @param
- *  The pointer to the `otNetifAddress` object returned from
- *  `otIp6GetUnicastAddresses()`.
- *
- * @return
- *  The `otNetifAddress` pointer representing the MLEID address for the currently
- *  running device. If MLEID cannot be found, NULL is returned.
-*/
-otNetifAddress *otIp6GetMleid(const otNetifAddress *firstUnicast) {
-#if DEBUG
-  char* aBuffer = calloc(1, OT_IP6_SOCK_ADDR_STRING_SIZE);
-#endif //DEBUG
-
-  for (otNetifAddress *netif = firstUnicast; netif != NULL; netif = netif->mNext) {
-      otIp6Address addr = netif->mAddress;
-
-#if DEBUG
-      otIp6AddressToString(&addr, aBuffer, OT_IP6_SOCK_ADDR_STRING_SIZE);
-      otLogNotePlat("*****************************");
-      otLogNotePlat("The unicast address is %s.", aBuffer);
-      otLogNotePlat("*****************************");
-#endif // DEBUG
-
-      if (netif->mMeshLocal == true) {
-        return netif;
-      }
-  }
-  return NULL;
-}
-
-/**
- *
-*/
 void ping(otInstance *aInstance) {
-  const otNetifAddress *firstUnicast = otIp6GetUnicastAddresses(aInstance);
+  otPingSenderConfig aConfig;
 
-  otIp6GetMleid(firstUnicast);
+  const otNetifAddress *netifSrc = otIp6GetUnicastAddresses(aInstance);
+  aConfig.mSource = netifSrc->mAddress;
+
+  otNetifAddress netifDst;
+  otIp6AddressFromString(MLEID, &(netifDst.mAddress));
+
+  aConfig.mTimeout = 100; // ms
+  aConfig.mMulticastLoop = false;
+
+  // Default settings
+  aConfig.mReplyCallback = NULL;
+  aConfig.mStatisticsCallback = NULL;
+  aConfig.mCallbackContext = NULL;
+  aConfig.mSize = 0;
+  aConfig.mCount = 0;
+  aConfig.mInterval = 0;
+  aConfig.mTimeout = 100; // ms
+  aConfig.mHopLimit = 0;
+
+  otPingSenderPing(aInstance, &aConfig);
   return;
 };

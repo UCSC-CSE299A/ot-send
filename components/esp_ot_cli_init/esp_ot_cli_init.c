@@ -1,5 +1,10 @@
 #include "esp_ot_cli_init.h"
 
+/**
+ * @file
+ *  This file initializes the OpenThread interface as a seperate worker thread.
+*/
+
 #if CONFIG_OPENTHREAD_CLI_ESP_EXTENSION
 #include "esp_ot_cli_extension.h"
 #endif // CONFIG_OPENTHREAD_CLI_ESP_EXTENSION
