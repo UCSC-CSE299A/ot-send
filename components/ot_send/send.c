@@ -3,6 +3,20 @@
 #include <openthread/ping_sender.h>
 
 /**
+ *
+*/
+void setSourceMleid(otInstance *aInstance, otPingSenderConfig *aConfig) {
+  const otIp6Address *mleid = NULL;
+  while (mleid == NULL) {
+    mleid = otThreadGetMeshLocalEid(aInstance);
+    vTaskDelay(DEFAULT_WAIT_TIME);
+  }
+
+  aConfig->mSource = *mleid;
+  return;
+}
+
+/**
  * @file
  *  This file defines the functions used for the sender to send
  *  packets to a given destination, at repeated intervals.
@@ -39,8 +53,7 @@
 void ping(otInstance *aInstance) {
   otPingSenderConfig aConfig;
 
-  const otNetifAddress *netifSrc = otIp6GetUnicastAddresses(aInstance);
-  aConfig.mSource = netifSrc->mAddress;
+  setSourceMleid(aInstance, &(aConfig));
 
   otNetifAddress netifDst;
   otIp6AddressFromString(MLEID, &(netifDst.mAddress));
@@ -57,7 +70,7 @@ void ping(otInstance *aInstance) {
 #endif // DEBUG
 
   aConfig.mTimeout = 100; // ms
-  aConfig.mMulticastLoop = false;
+  aConfig.mMulticastLoop = true;
 
   // Default settings
   aConfig.mReplyCallback = NULL;

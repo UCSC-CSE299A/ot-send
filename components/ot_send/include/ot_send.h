@@ -30,7 +30,7 @@
 #define PRINT_DELIMIER otLogNotePlat(DELIMITER)
 #define DEBUG_PRINT(ot_note) PRINT_DELIMIER; ot_note; PRINT_DELIMIER;
 
-#define DEFAULT_WAIT_TIME 1000 / portTICK_PERIOD_MS // 1 second 
+#define DEFAULT_WAIT_TIME 100 / portTICK_PERIOD_MS // 100 ms 
 
 /**
  * Creates a worker thread running OpenThread.
