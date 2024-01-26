@@ -31,7 +31,9 @@
 #define DEBUG_PRINT(ot_note) PRINT_DELIMIER; ot_note; PRINT_DELIMIER;
 #define PRINT_ERROR(ot_error) DEBUG_PRINT(otThreadErrorToString(ot_error))
 
-#define DEFAULT_WAIT_TIME 100 / portTICK_PERIOD_MS // 100 ms 
+#define MS_TO_TICKS(ms) ms / portTICK_PERIOD_MS
+#define DEFAULT_WAIT_TIME MS_TO_TICKS(100)
+#define PACKET_SEND_DELAY MS_TO_TICKS(5000) // 5 seconds
 
 #define OT_DISCONNECTED(role) (role == OT_DEVICE_ROLE_DISABLED) || (role == OT_DEVICE_ROLE_DETACHED)
 
@@ -45,12 +47,15 @@ void ot_task_worker(void *aContext);
 
 /**
  * Waits until the device is successfully connected into the Thread
- * WLAN before calling `ping()`.
+ * WLAN before calling `ping()` in an infinite loop.
  *
  * @param
  *  A pointer to the currrent OpenThread instance `aInstance`.
+ *
+ * @param
+ *  Sleep for `delay` ticks before sending another ping packet.
 */
-void start_ping(otInstance *aInstance);
+void start_ping(otInstance *aInstance, const TickType_t delay);
 
 /**
  * Sends ICMP "ping" packets to the Thread border router.

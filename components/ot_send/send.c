@@ -10,14 +10,17 @@
 
 #define MLEID "fdc2:53d3:bb7e:2437:114d:c3da:9918:d5e4"
 
-void start_ping(otInstance *aInstance) {
+void start_ping(otInstance *aInstance, const TickType_t delay) {
   otDeviceRole currentRole;
   do {
     currentRole = otThreadGetDeviceRole(aInstance);
     vTaskDelay(DEFAULT_WAIT_TIME);
   } while(OT_DISCONNECTED(currentRole));
 
-  ping(aInstance);
+  while (true) {
+    ping(aInstance);
+    vTaskDelay(delay);
+  }
   return;
 }
 
