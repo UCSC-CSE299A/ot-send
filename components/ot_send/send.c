@@ -3,6 +3,8 @@
 #include <openthread/ping_sender.h>
 #include <openthread/logging.h>
 
+#define DEBUG true
+
 /**
  * @file
  *  This file defines the functions used for the sender to send
@@ -43,22 +45,37 @@
  *  `otIp6GetUnicastAddresses()`.
  *
  * @return
- *  The MLEID address for the currently running device.
+ *  The `otNetifAddress` pointer representing the MLEID address for the currently
+ *  running device. If MLEID cannot be found, NULL is returned.
 */
-void otIp6GetMleid(const otNetifAddress *firstUnicast, char *aBuffer) {
-  otIp6AddressToString(&(firstUnicast->mAddress), aBuffer,
-    OT_IP6_SOCK_ADDR_STRING_SIZE);
-  return;
+otNetifAddress *otIp6GetMleid(const otNetifAddress *firstUnicast) {
+#if DEBUG
+  char* aBuffer = calloc(1, OT_IP6_SOCK_ADDR_STRING_SIZE);
+#endif //DEBUG
+
+  for (otNetifAddress *netif = firstUnicast; netif != NULL; netif = netif->mNext) {
+      otIp6Address addr = netif->mAddress;
+
+#if DEBUG
+      otIp6AddressToString(&addr, aBuffer, OT_IP6_SOCK_ADDR_STRING_SIZE);
+      otLogNotePlat("*****************************");
+      otLogNotePlat("The unicast address is %s.", aBuffer);
+      otLogNotePlat("*****************************");
+#endif // DEBUG
+
+      if (netif->mMeshLocal == true) {
+        return netif;
+      }
+  }
+  return NULL;
 }
 
 /**
  *
 */
 void ping(otInstance *aInstance) {
-  char* aBuffer = calloc(1, OT_IP6_SOCK_ADDR_STRING_SIZE);
   const otNetifAddress *firstUnicast = otIp6GetUnicastAddresses(aInstance);
 
-  otIp6GetMleid(firstUnicast, aBuffer);
-  otLogNotePlat("The first unicast address is %s.", aBuffer);
+  otIp6GetMleid(firstUnicast);
   return;
 };
