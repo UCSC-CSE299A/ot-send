@@ -20,7 +20,7 @@ otUdpSocket *udpCreateSocket(otInstance *aInstance, uint16_t port) {
   aSockName.mPort = port;
 
   ESP_ERROR_CHECK(otUdpBind(aInstance, aSocket, &aSockName, OT_NETIF_THREAD));
-  return;
+  return aSocket;
 }
 
 /**

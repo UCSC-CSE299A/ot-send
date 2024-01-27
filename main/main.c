@@ -35,6 +35,6 @@ void app_main(void)
     xTaskCreate(ot_task_worker, "ot_cli_main", 10240, xTaskGetCurrentTaskHandle(), 5, NULL);
   
     // start_ping(esp_openthread_get_instance(), PACKET_SEND_DELAY);
-    udpSend(esp_openthread_get_instance(), UDP_SOCK_PORT);
+    udpSend(esp_openthread_get_instance(), UDP_SOCK_PORT, UDP_DEST_PORT);
     return;
 }
