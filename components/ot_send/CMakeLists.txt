@@ -1,4 +1,4 @@
-idf_component_register(SRCS "init.c" "send.c"
+idf_component_register(SRCS "send_ping.c" "init.c"
                     INCLUDE_DIRS "include"
                     PRIV_REQUIRES "esp_event" "esp_netif" "esp_ot_cli_extension"
                     REQUIRES "openthread" "nvs_flash")
