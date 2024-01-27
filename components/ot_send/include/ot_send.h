@@ -70,4 +70,13 @@ void start_ping(otInstance *aInstance, const TickType_t delay);
 */
 void ping(otInstance *aInstance);
 
+/**
+ * Will wait until the device has been connected to the Thread network
+ * before running
+ *
+ * @param[in]
+ *  A pointer to the current OpenThread instance `aInstance`.
+*/
+void checkConnection(otInstance *aInstance);
+
 #endif // ESP_OT_SEND_

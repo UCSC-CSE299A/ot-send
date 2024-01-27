@@ -9,12 +9,7 @@
 */
 
 void start_ping(otInstance *aInstance, const TickType_t delay) {
-  otDeviceRole currentRole;
-  do {
-    currentRole = otThreadGetDeviceRole(aInstance);
-    vTaskDelay(DEFAULT_WAIT_TIME);
-  } while(OT_DISCONNECTED(currentRole));
-
+  checkConnection(aInstance);
   while (true) {
     ping(aInstance);
     vTaskDelay(delay);
