@@ -41,6 +41,9 @@ void udpSend(otInstance *aInstance, uint16_t port, uint16_t destPort) {
   otIp6Address *peerAddr = &(aMessageInfo.mPeerAddr);
   otIp6AddressFromString(MLEID_MULTICAST, peerAddr);
 
-  ESP_ERROR_CHECK(otUdpSend(aInstance, aSocket, aMessage, &aMessageInfo));
+  while (true) {
+    ESP_ERROR_CHECK(otUdpSend(aInstance, aSocket, aMessage, &aMessageInfo));
+    vTaskDelay(PACKET_SEND_DELAY);
+  }
   return;
 }
