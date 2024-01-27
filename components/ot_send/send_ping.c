@@ -5,7 +5,7 @@
 /**
  * @file
  *  This file defines the functions used for the sender to send
- *  packets to a given destination, at repeated intervals.
+ *  ICMP packets to all devices in the Thread WLAN, at a specified interval.
 */
 
 void start_ping(otInstance *aInstance, const TickType_t delay) {
