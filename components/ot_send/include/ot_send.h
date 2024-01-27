@@ -40,7 +40,7 @@
 /**
  * Creates a worker thread running OpenThread.
  *
- * @param 
+ * @param[in]
  *  A pointer to the application layer context `aContext`.
 */
 void ot_task_worker(void *aContext);
@@ -49,10 +49,10 @@ void ot_task_worker(void *aContext);
  * Waits until the device is successfully connected into the Thread
  * WLAN before calling `ping()` in an infinite loop.
  *
- * @param
+ * @param[in]
  *  A pointer to the currrent OpenThread instance `aInstance`.
  *
- * @param
+ * @param[in]
  *  Sleep for `delay` ticks before sending another ping packet.
 */
 void start_ping(otInstance *aInstance, const TickType_t delay);
@@ -60,7 +60,7 @@ void start_ping(otInstance *aInstance, const TickType_t delay);
 /**
  * Sends ICMP "ping" packets to the Thread border router.
  *
- * @param
+ * @param[in]
  *  A pointer to the current OpenThread instance `aInstance`.
 */
 void ping(otInstance *aInstance);

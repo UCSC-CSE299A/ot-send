@@ -8,7 +8,7 @@
  *  packets to a given destination, at repeated intervals.
 */
 
-#define MLEID "fdc2:53d3:bb7e:2437:114d:c3da:9918:d5e4"
+#define MLEID_MULTICAST "ff03::1"
 
 void start_ping(otInstance *aInstance, const TickType_t delay) {
   otDeviceRole currentRole;
@@ -30,7 +30,7 @@ void ping(otInstance *aInstance) {
   aConfig.mSource = *otThreadGetMeshLocalEid(aInstance);
 
   otIp6Address *destAddr = &(aConfig.mDestination);
-  otIp6AddressFromString(MLEID, destAddr);
+  otIp6AddressFromString(MLEID_MULTICAST, destAddr);
 
   aConfig.mTimeout = 100; // ms
   aConfig.mMulticastLoop = true;
