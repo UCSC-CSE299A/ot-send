@@ -55,7 +55,7 @@ void ot_task_worker(void *aContext);
 /**
  *
 */
-void udpSend(otInstance *aInstance, uint16_t port);
+void udpSend(otInstance *aInstance, uint16_t port, uint16_t destPort);
 
 /**
  * Waits until the device is successfully connected into the Thread
