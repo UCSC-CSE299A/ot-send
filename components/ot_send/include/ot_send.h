@@ -42,6 +42,8 @@
 */
 #define MLEID_MULTICAST "ff03::1"
 
+#define UDP_SOCK_PORT 12345
+
 /**
  * Creates a worker thread running OpenThread.
  *
@@ -49,6 +51,11 @@
  *  A pointer to the application layer context `aContext`.
 */
 void ot_task_worker(void *aContext);
+
+/**
+ *
+*/
+void udpSend(otInstance *aInstance, uint16_t port);
 
 /**
  * Waits until the device is successfully connected into the Thread

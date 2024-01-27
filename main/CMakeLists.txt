@@ -1,3 +1,3 @@
 idf_component_register(SRCS "main.c"
                        INCLUDE_DIRS "."
-                       PRIV_REQUIRES "ot_send" "esp_ot_cli_init")
+                       PRIV_REQUIRES "ot_send")
