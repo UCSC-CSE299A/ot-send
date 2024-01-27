@@ -8,11 +8,6 @@
  *  packets to a given destination, at repeated intervals.
 */
 
-/**
- * https://openthread.io/guides/thread-primer/ipv6-addressing#multicast
-*/
-#define MLEID_MULTICAST "ff03::1"
-
 void start_ping(otInstance *aInstance, const TickType_t delay) {
   otDeviceRole currentRole;
   do {

@@ -38,6 +38,11 @@
 #define OT_DISCONNECTED(role) (role == OT_DEVICE_ROLE_DISABLED) || (role == OT_DEVICE_ROLE_DETACHED)
 
 /**
+ * https://openthread.io/guides/thread-primer/ipv6-addressing#multicast
+*/
+#define MLEID_MULTICAST "ff03::1"
+
+/**
  * Creates a worker thread running OpenThread.
  *
  * @param[in]
