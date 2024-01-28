@@ -3,6 +3,6 @@
 
 #include <openthread/cli.h>
 
-void func(void);
+otError cse299aCommand(void *aContext, uint8_t aArgsLength, char *aArgs[]);
 
 #endif // CLI_TEXT_H
