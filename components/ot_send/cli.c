@@ -30,7 +30,7 @@ otError cliIntroString(void *aContext, uint8_t aArgsLength, char *aArgs[])
     
     if (aArgsLength == 0) {
         otCliOutputFormat("Hello World from CSE 299A!\n");
-        otCliOutputFormat("If you see this message, this means you have ");
+        otCliOutputFormat("If you see this message, this means you have\n");
         otCliOutputFormat("access to the CSE 299A UDP Sender.\n");
     }
     else {
@@ -38,4 +38,13 @@ otError cliIntroString(void *aContext, uint8_t aArgsLength, char *aArgs[])
     }
 
     return error;
+}
+
+otError infinitePing(void *aContext, uint8_t aArgsLength, char *aArgs[]) {
+  OT_UNUSED_VARIABLE(aContext);
+  OT_UNUSED_VARIABLE(aArgsLength);
+  OT_UNUSED_VARIABLE(aArgs);
+
+  start_ping(esp_openthread_get_instance(), PACKET_SEND_DELAY);
+  return OT_ERROR_NONE;
 }

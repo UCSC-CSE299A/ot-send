@@ -12,9 +12,11 @@
 
 void otCliSentCustomCommands(otInstance *aInstance);
 otError cliIntroString(void *aContext, uint8_t aArgsLength, char *aArgs[]);
+otError infinitePing(void *aContext, uint8_t aArgsLength, char *aArgs[]);
 
 static const otCliCommand customCommands[] = {
     {"udp-cse299a", cliIntroString},
+    {"infinite-ping", infinitePing},
 };
 
 #endif // CLI_H_
