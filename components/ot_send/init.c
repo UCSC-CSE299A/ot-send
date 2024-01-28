@@ -3,6 +3,10 @@
 /**
  * @file
  *  This file initializes the OpenThread interface as a seperate worker thread.
+ *
+ *  All of this code from this file is from the Espressif Thread example
+ *  boilerplate source code:
+ *  https://github.com/espressif/esp-idf/blob/b3f7e2c8a4d354df8ef8558ea7caddc07283a57b/examples/openthread/ot_cli/main/esp_ot_cli.c
 */
 
 #if CONFIG_OPENTHREAD_CLI_ESP_EXTENSION

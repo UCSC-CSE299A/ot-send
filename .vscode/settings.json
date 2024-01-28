@@ -41,7 +41,8 @@
     "esp_event.h": "c",
     "uart_types.h": "c",
     "ping_sender.h": "c",
-    "udp.h": "c"
+    "udp.h": "c",
+    "cli_text.h": "c"
   },
   "idf.adapterTargetName": "esp32h2"
 }
