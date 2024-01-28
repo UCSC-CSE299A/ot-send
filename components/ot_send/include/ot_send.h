@@ -3,6 +3,7 @@
 
 #include "esp_ot_config.h"
 #include "ot_send.h"
+#include "cli.h"
 
 #include "esp_err.h"
 #include "esp_event.h"

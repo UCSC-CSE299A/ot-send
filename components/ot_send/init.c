@@ -1,5 +1,4 @@
 #include "ot_send.h"
-#include "cli_text.h"
 
 /**
  * @file
@@ -13,17 +12,6 @@
 #if CONFIG_OPENTHREAD_CLI_ESP_EXTENSION
 #include "esp_ot_cli_extension.h"
 #endif // CONFIG_OPENTHREAD_CLI_ESP_EXTENSION
-
-void otCliSentCustomCommands(void)
-{
-  const uint32_t length = 1;
-  static const otCliCommand customCommands[] = {
-    {"cse299a", cse299aCommand}
-  };
-
-  otCliSetUserCommands(customCommands, length, NULL);
-  return;
-}
 
 static esp_netif_t *init_openthread_netif(const esp_openthread_platform_config_t *config)
 {
@@ -59,6 +47,10 @@ void ot_task_worker(void *aContext)
     // Initialize the esp_netif bindings
     openthread_netif = init_openthread_netif(&config);
     esp_netif_set_default_netif(openthread_netif);
+
+#if OT_SEND_CLI_USE
+  otCliSentCustomCommands(esp_openthread_get_instance());
+#endif // OT_SEND_CLI_USE
 
 #if CONFIG_OPENTHREAD_CLI_ESP_EXTENSION
     esp_cli_custom_command_init();

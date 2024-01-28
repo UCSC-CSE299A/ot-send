@@ -42,7 +42,10 @@
     "uart_types.h": "c",
     "ping_sender.h": "c",
     "udp.h": "c",
-    "cli_text.h": "c"
+    "cli_text.h": "c",
+    "version.h": "c",
+    "unistd.h": "c",
+    "esp_openthread_platform.h": "c"
   },
   "idf.adapterTargetName": "esp32h2"
 }

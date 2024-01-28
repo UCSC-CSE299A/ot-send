@@ -11,7 +11,8 @@
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/components/cli_text/include",
                 "${workspaceFolder}/components/ot_send/cli_text/include",
-                "/Users/simeon/esp/esp-idf/components/openthread/openthread/include"
+                "/Users/simeon/esp/esp-idf/components/openthread/openthread/include",
+                "${workspaceFolder}/components/ot_send/components/cli_text/include"
             ],
             "browse": {
                 "path": [
