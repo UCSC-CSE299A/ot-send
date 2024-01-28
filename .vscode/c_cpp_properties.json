@@ -9,7 +9,9 @@
                 "${config:idf.espAdfPath}/components/**",
                 "${config:idf.espAdfPathWin}/components/**",
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/components/cli_text/include"
+                "${workspaceFolder}/components/cli_text/include",
+                "${workspaceFolder}/components/ot_send/cli_text/include",
+                "/Users/simeon/esp/esp-idf/components/openthread/openthread/include"
             ],
             "browse": {
                 "path": [

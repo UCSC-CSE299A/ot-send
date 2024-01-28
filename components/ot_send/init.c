@@ -1,4 +1,5 @@
 #include "ot_send.h"
+#include "cli_text.h"
 
 /**
  * @file
@@ -12,6 +13,17 @@
 #if CONFIG_OPENTHREAD_CLI_ESP_EXTENSION
 #include "esp_ot_cli_extension.h"
 #endif // CONFIG_OPENTHREAD_CLI_ESP_EXTENSION
+
+void otCliSentCustomCommands(void)
+{
+  const uint32_t length = 1;
+  static const otCliCommand customCommands[] = {
+    {"cse299a", cse299aCommand}
+  };
+
+  otCliSetUserCommands(customCommands, length, NULL);
+  return;
+}
 
 static esp_netif_t *init_openthread_netif(const esp_openthread_platform_config_t *config)
 {
