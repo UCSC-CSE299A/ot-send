@@ -3,7 +3,7 @@
 
 # OpenThread UDP Sender
 
-This codebase enables an 802.15.4 ESP32 MCU to broadcast UDP packets in a Thread WLAN
+This codebase enables an 802.15.4 ESP32 MCU to broadcast UDP packets in a Thread WLAN.
 
 ## Setup
 
