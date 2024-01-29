@@ -1,4 +1,8 @@
+#include <stdio.h>
+
 #include "ot_send.h"
+
+#define MAX_CHARS 22
 
 /**
  * @todo
@@ -34,8 +38,15 @@ void handleError(otMessage *aMessage, otError error) {
 }
 
 otError udpAttachPayload(otMessage *aMessage) {
-  char* payload = "Hello World! This is the UDP packet payload.";
-  return otMessageAppend(aMessage, payload, sizeof(payload));
+  static int count = 0;
+
+  char* payload = calloc(MAX_CHARS, sizeof(char));
+  sprintf(payload, "Packet Number %d", count);
+  count += 1;
+
+  otError error = otMessageAppend(aMessage, payload, MAX_CHARS * sizeof(char));
+  free(payload);
+  return error;
 }
 
 void udpSend(
