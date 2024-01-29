@@ -70,7 +70,7 @@ void udpSendInfinite(otInstance *aInstance, uint16_t port, uint16_t destPort);
  * @param[in]
  *  Sleep for `delay` ticks before sending another ping packet.
 */
-void start_ping(otInstance *aInstance, const TickType_t delay);
+otError start_ping(otInstance *aInstance, const TickType_t delay);
 
 /**
  * Sends ICMP "ping" packets to the Thread border router.
@@ -78,7 +78,7 @@ void start_ping(otInstance *aInstance, const TickType_t delay);
  * @param[in]
  *  A pointer to the current OpenThread instance `aInstance`.
 */
-void ping(otInstance *aInstance);
+otError ping(otInstance *aInstance);
 
 /**
  * Will wait until the device has been connected to the Thread network

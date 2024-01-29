@@ -8,16 +8,22 @@
  *  ICMP packets to all devices in the Thread WLAN, at a specified interval.
 */
 
-void start_ping(otInstance *aInstance, const TickType_t delay) {
+otError start_ping(otInstance *aInstance, const TickType_t delay) {
   checkConnection(aInstance);
   while (true) {
-    ping(aInstance);
+    otError error = ping(aInstance);
+    if (error != OT_ERROR_NONE) {
+      ERROR_PRINT(otLogCritPlat("%s", otThreadErrorToString(error)));
+      ERROR_PRINT(otLogCritPlat("Ending infinite ping."));
+      return error;
+    }
+
     vTaskDelay(delay);
   }
-  return;
+  return OT_ERROR_NONE;
 }
 
-void ping(otInstance *aInstance) {
+otError ping(otInstance *aInstance) {
   otPingSenderConfig aConfig;
 
   aConfig.mSource = *otThreadGetMeshLocalEid(aInstance);
@@ -38,6 +44,5 @@ void ping(otInstance *aInstance) {
   aConfig.mTimeout = 100; // ms
   aConfig.mHopLimit = 0;
 
-  ESP_ERROR_CHECK(otPingSenderPing(aInstance, &aConfig));
-  return;
+  return otPingSenderPing(aInstance, &aConfig);
 };
