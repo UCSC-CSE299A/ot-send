@@ -27,9 +27,17 @@ otUdpSocket *udpCreateSocket(
   return aSocket;
 }
 
-/**
- *
-*/
+void handleError(otMessage *aMessage, otError error) {
+  ERROR_PRINT(otLogCritPlat("%s", otThreadErrorToString(error)));
+  otMessageFree(aMessage);
+  return;
+}
+
+otError udpAttachPayload(otMessage *aMessage) {
+  char* payload = "Hello World! This is the UDP packet payload.";
+  return otMessageAppend(aMessage, payload, sizeof(payload));
+}
+
 void udpSend(
   otInstance *aInstance,
   uint16_t port,
@@ -37,13 +45,16 @@ void udpSend(
   otUdpSocket *aSocket,
   otMessageInfo *aMessageInfo
 ) {
-  otMessage *aMessageBuffer = otUdpNewMessage(aInstance, NULL);
+  otMessage *aMessage = otUdpNewMessage(aInstance, NULL);
 
-  otError error = otUdpSend(aInstance, aSocket, aMessageBuffer, aMessageInfo);
+  otError error = udpAttachPayload(aMessage);
   if (error != OT_ERROR_NONE) {
-    ERROR_PRINT(otLogCritPlat("%s", otThreadErrorToString(error)));
+    handleError(aMessage, error);
+  }
 
-    otMessageFree(aMessageBuffer);
+  error = otUdpSend(aInstance, aSocket, aMessage, aMessageInfo);
+  if (error != OT_ERROR_NONE) {
+    handleError(aMessage, error);
   }
 
   DEBUG_PRINT(otLogNotePlat("UDP packet successfully sent."));
@@ -51,9 +62,6 @@ void udpSend(
   return;
 }
 
-/**
- *
-*/
 void udpSendInfinite(otInstance *aInstance, uint16_t port, uint16_t destPort) {
   otSockAddr aSockName;
   aSockName.mAddress = *otThreadGetMeshLocalEid(aInstance);
