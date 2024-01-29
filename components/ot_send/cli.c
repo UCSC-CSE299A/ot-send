@@ -41,5 +41,5 @@ otError cliIntroString(void *aContext, uint8_t aArgsLength, char *aArgs[])
 }
 
 otError infinitePing(void *aContext, uint8_t aArgsLength, char *aArgs[]) {
-  return start_ping(esp_openthread_get_instance(), PACKET_SEND_DELAY);
+  return startPing(esp_openthread_get_instance(), PACKET_SEND_DELAY);
 }

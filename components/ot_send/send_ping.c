@@ -8,7 +8,7 @@
  *  ICMP packets to all devices in the Thread WLAN, at a specified interval.
 */
 
-otError start_ping(otInstance *aInstance, const TickType_t delay) {
+otError startPing(otInstance *aInstance, const TickType_t delay) {
   checkConnection(aInstance);
   while (true) {
     otError error = ping(aInstance);
