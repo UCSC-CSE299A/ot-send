@@ -41,10 +41,6 @@ otError cliIntroString(void *aContext, uint8_t aArgsLength, char *aArgs[])
 }
 
 otError infinitePing(void *aContext, uint8_t aArgsLength, char *aArgs[]) {
-  OT_UNUSED_VARIABLE(aContext);
-  OT_UNUSED_VARIABLE(aArgsLength);
-  OT_UNUSED_VARIABLE(aArgs);
-
   start_ping(esp_openthread_get_instance(), PACKET_SEND_DELAY);
   return OT_ERROR_NONE;
 }
