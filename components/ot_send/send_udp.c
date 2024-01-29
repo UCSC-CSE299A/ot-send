@@ -41,9 +41,7 @@ void udpSend(
 
   otError error = otUdpSend(aInstance, aSocket, aMessageBuffer, aMessageInfo);
   if (error != OT_ERROR_NONE) {
-    otLogCritPlat(DELIMITER);
-    otLogCritPlat("%s", otThreadErrorToString(error));
-    otLogCritPlat(DELIMITER);
+    ERROR_PRINT(otLogCritPlat("%s", otThreadErrorToString(error)));
 
     otMessageFree(aMessageBuffer);
   }

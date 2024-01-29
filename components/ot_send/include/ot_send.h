@@ -31,7 +31,7 @@
 #define DELIMITER "************************************"
 #define PRINT_DELIMIER otLogNotePlat(DELIMITER)
 #define DEBUG_PRINT(ot_note) PRINT_DELIMIER; ot_note; PRINT_DELIMIER;
-#define PRINT_ERROR(ot_error) DEBUG_PRINT(otThreadErrorToString(ot_error))
+#define ERROR_PRINT(ot_error) otLogCritPlat(DELIMITER); ot_error; otLogCritPlat(DELIMITER);
 
 #define MS_TO_TICKS(ms) ms / portTICK_PERIOD_MS
 #define DEFAULT_WAIT_TIME MS_TO_TICKS(100)
