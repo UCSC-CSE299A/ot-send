@@ -1,7 +1,5 @@
 #include "ot_send.h"
 
-#include <openthread/udp.h>
-
 /**
  * @todo
  *  Determine what you need to free, so you can then create and free UDP packets,
@@ -17,17 +15,13 @@
  * @param[in]
  *  The `port` to use in the UDP socket.
 */
-otUdpSocket *udpCreateSocket(otInstance *aInstance, uint16_t port) {
+otUdpSocket *udpCreateSocket(
+  otInstance *aInstance,
+  uint16_t port,
+  otSockAddr *aSockName
+) {
   otUdpSocket *aSocket = calloc(1, sizeof(otUdpSocket));
   ESP_ERROR_CHECK(otUdpOpen(aInstance, aSocket, NULL, NULL));
-
-  /**
-   * @todo
-   *  Free the heap data associated with `aSockName`.
-  */
-  otSockAddr *aSockName = calloc(1, sizeof(otSockAddr));
-  aSockName->mAddress = *otThreadGetMeshLocalEid(aInstance);
-  aSockName->mPort = port;
 
   ESP_ERROR_CHECK(otUdpBind(aInstance, aSocket, aSockName, OT_NETIF_THREAD));
   return aSocket;
@@ -36,28 +30,51 @@ otUdpSocket *udpCreateSocket(otInstance *aInstance, uint16_t port) {
 /**
  *
 */
-void udpSend(otInstance *aInstance, uint16_t port, uint16_t destPort) {
+void udpSend(
+  otInstance *aInstance,
+  uint16_t port,
+  uint16_t destPort,
+  otUdpSocket *aSocket,
+  otMessageInfo *aMessageInfo
+) {
+  otMessage *aMessageBuffer = otUdpNewMessage(aInstance, NULL);
+
+  otError error = otUdpSend(aInstance, aSocket, aMessageBuffer, aMessageInfo);
+  if (error != OT_ERROR_NONE) {
+    otLogCritPlat(DELIMITER);
+    otLogCritPlat("%s", otThreadErrorToString(error));
+    otLogCritPlat(DELIMITER);
+
+    otMessageFree(aMessageBuffer);
+  }
+
+  DEBUG_PRINT(otLogNotePlat("UDP packet successfully sent."));
+  vTaskDelay(PACKET_SEND_DELAY);
+  return;
+}
+
+/**
+ *
+*/
+void udpSendInfinite(otInstance *aInstance, uint16_t port, uint16_t destPort) {
+  otSockAddr aSockName;
+  aSockName.mAddress = *otThreadGetMeshLocalEid(aInstance);
+  aSockName.mPort = port;
+
+  otUdpSocket *aSocket = udpCreateSocket(aInstance, port, &aSockName);
   checkConnection(aInstance);
 
-  otUdpSocket *aSocket = udpCreateSocket(aInstance, port);
-  otMessage *aMessage = otUdpNewMessage(aInstance, NULL);
-
-  /**
-   * @todo
-   *  Free the heap data associated with `aSockName`.
-  */
-  otMessageInfo *aMessageInfo = calloc(1, sizeof(otMessageInfo));
-  aMessageInfo->mSockAddr = *otThreadGetMeshLocalEid(aInstance);
-  aMessageInfo->mSockPort = port;
-  aMessageInfo->mPeerPort = destPort;
-  aMessageInfo->mLinkInfo = NULL;
-  aMessageInfo->mHopLimit = 0;  // default
-  otIp6Address *peerAddr = &(aMessageInfo->mPeerAddr);
+  otMessageInfo aMessageInfo;
+  aMessageInfo.mSockAddr = *otThreadGetMeshLocalEid(aInstance);
+  aMessageInfo.mSockPort = port;
+  aMessageInfo.mPeerPort = destPort;
+  aMessageInfo.mLinkInfo = NULL;
+  aMessageInfo.mHopLimit = 0;  // default
+  otIp6Address *peerAddr = &(aMessageInfo.mPeerAddr);
   otIp6AddressFromString(MLEID_MULTICAST, peerAddr);
 
-  // ESP_ERROR_CHECK(otUdpSend(aInstance, aSocket, aMessage, &aMessageInfo));
   while (true) {
-    otUdpSend(aInstance, aSocket, aMessage, aMessageInfo);
+    udpSend(aInstance, port, destPort, aSocket, &aMessageInfo);
   }
   return;
 }

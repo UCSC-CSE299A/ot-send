@@ -25,6 +25,7 @@
 #include "openthread/instance.h"
 #include "openthread/logging.h"
 #include "openthread/tasklet.h"
+#include "openthread/udp.h"
 
 #define DEBUG true
 #define DELIMITER "************************************"
@@ -57,7 +58,7 @@ void ot_task_worker(void *aContext);
 /**
  *
 */
-void udpSend(otInstance *aInstance, uint16_t port, uint16_t destPort);
+void udpSendInfinite(otInstance *aInstance, uint16_t port, uint16_t destPort);
 
 /**
  * Waits until the device is successfully connected into the Thread
