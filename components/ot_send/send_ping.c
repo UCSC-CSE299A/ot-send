@@ -11,13 +11,20 @@
 otError startPing(otInstance *aInstance, const TickType_t delay) {
   checkConnection(aInstance);
   while (true) {
-    otError error = ping(aInstance);
-    if (error != OT_ERROR_NONE) {
-      ERROR_PRINT(otLogCritPlat("%s", otThreadErrorToString(error)));
-      ERROR_PRINT(otLogCritPlat("Ending infinite ping."));
-      return error;
+    if (esp_openthread_lock_acquire(DEFAULT_WAIT_TIME)) {
+      otError error = ping(aInstance);
+
+      if (error != OT_ERROR_NONE) {
+        ERROR_PRINT(otLogCritPlat("%s", otThreadErrorToString(error)));
+        ERROR_PRINT(otLogCritPlat("Ending infinite ping."));
+        return error;
+      } else {
+        DEBUG_PRINT(otLogNotePlat("Successfully sent ping packets."));
+      }
+      esp_openthread_lock_release();      
     }
 
+    DEBUG_PRINT(otLogNotePlat("Waiting for the OpenThread lock."));
     vTaskDelay(delay);
   }
   return OT_ERROR_NONE;
