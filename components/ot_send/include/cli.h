@@ -13,9 +13,11 @@
 void otCliSentCustomCommands(otInstance *aInstance);
 otError cliIntroString(void *aContext, uint8_t aArgsLength, char *aArgs[]);
 otError infinitePing(void *aContext, uint8_t aArgsLength, char *aArgs[]);
+otError startUdpInfinite(void *aContext, uint8_t aArgsLength, char *aArgs[]);
 
 static const otCliCommand customCommands[] = {
     {"udp-cse299a", cliIntroString},
+    {"infinite-udp", startUdpInfinite},
     {"infinite-ping", infinitePing},
 };
 

@@ -43,3 +43,8 @@ otError cliIntroString(void *aContext, uint8_t aArgsLength, char *aArgs[])
 otError infinitePing(void *aContext, uint8_t aArgsLength, char *aArgs[]) {
   return startPing(esp_openthread_get_instance(), PACKET_SEND_DELAY);
 }
+
+otError startUdpInfinite(void *aContext, uint8_t aArgsLength, char *aArgs[]) {
+  udpSendInfinite(esp_openthread_get_instance(), UDP_SOCK_PORT, UDP_DEST_PORT);
+  return OT_ERROR_NONE;
+}
