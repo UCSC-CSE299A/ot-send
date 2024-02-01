@@ -32,13 +32,11 @@ otError udpAttachPayload(otMessage *aMessage) {
   return error;
 }
 
-void udpSend(
-  otInstance *aInstance,
-  uint16_t port,
-  uint16_t destPort,
-  otUdpSocket *aSocket,
-  otMessageInfo *aMessageInfo
-) {
+void udpSend(otInstance *aInstance,
+             uint16_t port,
+             uint16_t destPort,
+             otUdpSocket *aSocket,
+             otMessageInfo *aMessageInfo) {
   otMessage *aMessage = otUdpNewMessage(aInstance, NULL);
 
   otError error = udpAttachPayload(aMessage);
