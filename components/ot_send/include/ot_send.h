@@ -52,4 +52,6 @@ void udpSendInfinite(otInstance *aInstance, uint16_t port, uint16_t destPort);
 
 void checkConnection(otInstance *aInstance);
 
+void otAutoStart(otInstance *aInstance);
+
 #endif // ESP_OT_SEND_

@@ -45,7 +45,10 @@
     "cli_text.h": "c",
     "version.h": "c",
     "unistd.h": "c",
-    "esp_openthread_platform.h": "c"
+    "esp_openthread_platform.h": "c",
+    "esp_system.h": "c",
+    "esp_openthread_radio.h": "c",
+    "thread.h": "c"
   },
   "idf.adapterTargetName": "esp32h2"
 }

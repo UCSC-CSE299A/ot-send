@@ -56,8 +56,6 @@ void ot_task_worker(void *aContext)
 #if CONFIG_OPENTHREAD_CLI
     esp_openthread_cli_create_task();
 #endif
-
-    // Automatically connect to the Thread network
     otOperationalDatasetTlvs dataset;
     otError error = otDatasetGetActiveTlvs(esp_openthread_get_instance(), &dataset);
     ESP_ERROR_CHECK(esp_openthread_auto_start((error == OT_ERROR_NONE) ? &dataset : NULL));
