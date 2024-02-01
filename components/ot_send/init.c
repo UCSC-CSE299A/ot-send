@@ -48,10 +48,6 @@ void ot_task_worker(void *aContext)
     openthread_netif = init_openthread_netif(&config);
     esp_netif_set_default_netif(openthread_netif);
 
-#if OT_SEND_CLI_USE
-  otCliSentCustomCommands(esp_openthread_get_instance());
-#endif // OT_SEND_CLI_USE
-
 #if CONFIG_OPENTHREAD_CLI_ESP_EXTENSION
     esp_cli_custom_command_init();
 #endif // CONFIG_OPENTHREAD_CLI_ESP_EXTENSION

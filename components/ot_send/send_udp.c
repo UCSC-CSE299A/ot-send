@@ -5,12 +5,6 @@
 #define MAX_CHARS 22
 
 /**
- * @todo
- *  Determine what you need to free, so you can then create and free UDP packets,
- *  rather than repeatedly sending the same UDP packet instance.
-*/
-
-/**
  * Creates a UDP socket at the specified port.
  *
  * @param[in]

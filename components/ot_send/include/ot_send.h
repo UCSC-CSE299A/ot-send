@@ -3,7 +3,6 @@
 
 #include "esp_ot_config.h"
 #include "ot_send.h"
-#include "cli.h"
 
 #include "esp_err.h"
 #include "esp_event.h"
@@ -59,26 +58,6 @@ void ot_task_worker(void *aContext);
  *
 */
 void udpSendInfinite(otInstance *aInstance, uint16_t port, uint16_t destPort);
-
-/**
- * Waits until the device is successfully connected into the Thread
- * WLAN before calling `ping()` in an infinite loop.
- *
- * @param[in]
- *  A pointer to the currrent OpenThread instance `aInstance`.
- *
- * @param[in]
- *  Sleep for `delay` ticks before sending another ping packet.
-*/
-otError startPing(otInstance *aInstance, const TickType_t delay);
-
-/**
- * Sends ICMP "ping" packets to the Thread border router.
- *
- * @param[in]
- *  A pointer to the current OpenThread instance `aInstance`.
-*/
-otError ping(otInstance *aInstance);
 
 /**
  * Will wait until the device has been connected to the Thread network
