@@ -4,20 +4,27 @@
 
 #define MAX_CHARS 22
 
+void handleError(otError error) {
+  if (error != OT_ERROR_NONE) {
+    ERROR_PRINT(otLogCritPlat("%s", otThreadErrorToString(error)));
+  }
+  return;
+}
+
+void handleMessageError(otMessage *aMessage, otError error) {
+  handleError(error);
+  otMessageFree(aMessage);
+  return;
+}
+
 otUdpSocket *udpCreateSocket(otInstance *aInstance,
                              uint16_t port,
                              otSockAddr *aSockName) {
   otUdpSocket *aSocket = calloc(1, sizeof(otUdpSocket));
-  ESP_ERROR_CHECK(otUdpOpen(aInstance, aSocket, NULL, NULL));
+  otUdpOpen(aInstance, aSocket, NULL, NULL);
 
-  ESP_ERROR_CHECK(otUdpBind(aInstance, aSocket, aSockName, OT_NETIF_THREAD));
+  otUdpBind(aInstance, aSocket, aSockName, OT_NETIF_THREAD);
   return aSocket;
-}
-
-void handleError(otMessage *aMessage, otError error) {
-  ERROR_PRINT(otLogCritPlat("%s", otThreadErrorToString(error)));
-  otMessageFree(aMessage);
-  return;
 }
 
 otError udpAttachPayload(otMessage *aMessage) {
@@ -40,14 +47,10 @@ void udpSend(otInstance *aInstance,
   otMessage *aMessage = otUdpNewMessage(aInstance, NULL);
 
   otError error = udpAttachPayload(aMessage);
-  if (error != OT_ERROR_NONE) {
-    handleError(aMessage, error);
-  }
+  handleMessageError(aMessage, error);
 
   error = otUdpSend(aInstance, aSocket, aMessage, aMessageInfo);
-  if (error != OT_ERROR_NONE) {
-    handleError(aMessage, error);
-  }
+  handleMessageError(aMessage, error);
 
   DEBUG_PRINT(otLogNotePlat("UDP packet successfully sent."));
   vTaskDelay(PACKET_SEND_DELAY);
