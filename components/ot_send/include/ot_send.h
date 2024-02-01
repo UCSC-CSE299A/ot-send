@@ -46,26 +46,10 @@
 #define UDP_SOCK_PORT 12345
 #define UDP_DEST_PORT 12345
 
-/**
- * Creates a worker thread running OpenThread.
- *
- * @param[in]
- *  A pointer to the application layer context `aContext`.
-*/
 void ot_task_worker(void *aContext);
 
-/**
- *
-*/
 void udpSendInfinite(otInstance *aInstance, uint16_t port, uint16_t destPort);
 
-/**
- * Will wait until the device has been connected to the Thread network
- * before running
- *
- * @param[in]
- *  A pointer to the current OpenThread instance `aInstance`.
-*/
 void checkConnection(otInstance *aInstance);
 
 #endif // ESP_OT_SEND_

@@ -4,20 +4,9 @@
 
 #define MAX_CHARS 22
 
-/**
- * Creates a UDP socket at the specified port.
- *
- * @param[in]
- *  The OpenThread instance `aInstance`.
- *
- * @param[in]
- *  The `port` to use in the UDP socket.
-*/
-otUdpSocket *udpCreateSocket(
-  otInstance *aInstance,
-  uint16_t port,
-  otSockAddr *aSockName
-) {
+otUdpSocket *udpCreateSocket(otInstance *aInstance,
+                             uint16_t port,
+                             otSockAddr *aSockName) {
   otUdpSocket *aSocket = calloc(1, sizeof(otUdpSocket));
   ESP_ERROR_CHECK(otUdpOpen(aInstance, aSocket, NULL, NULL));
 
