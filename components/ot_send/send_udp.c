@@ -4,16 +4,17 @@
 
 #define MAX_CHARS 22
 
-void handleError(otError error) {
+otError handleError(otError error) {
   if (error != OT_ERROR_NONE) {
     ERROR_PRINT(otLogCritPlat("%s", otThreadErrorToString(error)));
   }
-  return;
+  return error;
 }
 
 void handleMessageError(otMessage *aMessage, otError error) {
-  handleError(error);
-  otMessageFree(aMessage);
+  if (handleError(error) != OT_ERROR_NONE) {
+    otMessageFree(aMessage);
+  }
   return;
 }
 
@@ -21,9 +22,9 @@ otUdpSocket *udpCreateSocket(otInstance *aInstance,
                              uint16_t port,
                              otSockAddr *aSockName) {
   otUdpSocket *aSocket = calloc(1, sizeof(otUdpSocket));
-  otUdpOpen(aInstance, aSocket, NULL, NULL);
+  handleError(otUdpOpen(aInstance, aSocket, NULL, NULL));
 
-  otUdpBind(aInstance, aSocket, aSockName, OT_NETIF_THREAD);
+  handleError(otUdpBind(aInstance, aSocket, aSockName, OT_NETIF_THREAD));
   return aSocket;
 }
 
@@ -72,7 +73,7 @@ void udpSendInfinite(otInstance *aInstance, uint16_t port, uint16_t destPort) {
   aMessageInfo.mLinkInfo = NULL;
   aMessageInfo.mHopLimit = 0;  // default
   otIp6Address *peerAddr = &(aMessageInfo.mPeerAddr);
-  otIp6AddressFromString(MLEID_MULTICAST, peerAddr);
+  handleError(otIp6AddressFromString(MLEID_MULTICAST, peerAddr));
 
   while (true) {
     udpSend(aInstance, port, destPort, aSocket, &aMessageInfo);
