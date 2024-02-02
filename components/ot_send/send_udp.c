@@ -59,12 +59,12 @@ void udpSend(otInstance *aInstance,
 }
 
 void udpSendInfinite(otInstance *aInstance, uint16_t port, uint16_t destPort) {
+  checkConnection(aInstance);
+
   otSockAddr aSockName;
   aSockName.mAddress = *otThreadGetMeshLocalEid(aInstance);
   aSockName.mPort = port;
-
   otUdpSocket *aSocket = udpCreateSocket(aInstance, port, &aSockName);
-  checkConnection(aInstance);
 
   otMessageInfo aMessageInfo;
   aMessageInfo.mSockAddr = *otThreadGetMeshLocalEid(aInstance);
