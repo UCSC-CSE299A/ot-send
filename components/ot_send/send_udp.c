@@ -28,16 +28,16 @@ otUdpSocket *udpCreateSocket(otInstance *aInstance,
   return aSocket;
 }
 
-otError udpAttachPayload(otMessage *aMessage) {
+int udpAttachPayload(otMessage *aMessage) {
   static int count = 0;
 
   char* payload = calloc(MAX_CHARS, sizeof(char));
   sprintf(payload, "Packet Number %d", count);
   count += 1;
 
-  otError error = otMessageAppend(aMessage, payload, MAX_CHARS * sizeof(char));
+  handleError(otMessageAppend(aMessage, payload, MAX_CHARS * sizeof(char)));
   free(payload);
-  return error;
+  return count;
 }
 
 void udpSend(otInstance *aInstance,
@@ -50,10 +50,9 @@ void udpSend(otInstance *aInstance,
   otError error = udpAttachPayload(aMessage);
   handleMessageError(aMessage, error);
 
-  error = otUdpSend(aInstance, aSocket, aMessage, aMessageInfo);
-  handleMessageError(aMessage, error);
+  int count = otUdpSend(aInstance, aSocket, aMessage, aMessageInfo);
+  otLogNotePlat("Sent UDP packet %d", count);
 
-  DEBUG_PRINT(otLogNotePlat("UDP packet successfully sent."));
   vTaskDelay(PACKET_SEND_DELAY);
   return;
 }
