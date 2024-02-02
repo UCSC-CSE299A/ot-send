@@ -32,3 +32,7 @@ You should then to expect to see the following output from each of the devices:
 ```
 
 Note that the `Packet Number` may vary depending on when you have created the UDP socket.
+
+## Enabling Automatic Start
+
+The `UART` port must be used in order to enable automatic start of sending UDP packets without turning on the serial monitor. The `USB-Serial` port should not be utilized.
