@@ -18,9 +18,7 @@ void handleMessageError(otMessage *aMessage, otError error) {
   return;
 }
 
-otUdpSocket *udpCreateSocket(otInstance *aInstance,
-                             uint16_t port,
-                             otSockAddr *aSockName) {
+otUdpSocket *udpCreateSocket(otInstance *aInstance, otSockAddr *aSockName) {
   otUdpSocket *aSocket = calloc(1, sizeof(otUdpSocket));
   handleError(otUdpOpen(aInstance, aSocket, NULL, NULL));
 
@@ -65,7 +63,7 @@ void udpSendInfinite(otInstance *aInstance, uint16_t port, uint16_t destPort) {
   otSockAddr aSockName;
   aSockName.mAddress = *otThreadGetMeshLocalEid(aInstance);
   aSockName.mPort = port;
-  otUdpSocket *aSocket = udpCreateSocket(aInstance, port, &aSockName);
+  otUdpSocket *aSocket = udpCreateSocket(aInstance, &aSockName);
 
   otMessageInfo aMessageInfo;
   aMessageInfo.mSockAddr = *otThreadGetMeshLocalEid(aInstance);
