@@ -35,9 +35,11 @@ int udpAttachPayload(otMessage *aMessage) {
   sprintf(payload, "Packet Number %d", count);
   count += 1;
 
-  handleError(otMessageAppend(aMessage, payload, MAX_CHARS * sizeof(char)));
+  otError error = otMessageAppend(aMessage, payload, MAX_CHARS * sizeof(char));
+  handleMessageError(aMessage, error);
+
   free(payload);
-  return count;
+  return count - 1;
 }
 
 void udpSend(otInstance *aInstance,
@@ -47,11 +49,11 @@ void udpSend(otInstance *aInstance,
              otMessageInfo *aMessageInfo) {
   otMessage *aMessage = otUdpNewMessage(aInstance, NULL);
 
-  otError error = udpAttachPayload(aMessage);
-  handleMessageError(aMessage, error);
-
-  int count = otUdpSend(aInstance, aSocket, aMessage, aMessageInfo);
+  int count = udpAttachPayload(aMessage);
   otLogNotePlat("Sent UDP packet %d", count);
+
+  otError error = otUdpSend(aInstance, aSocket, aMessage, aMessageInfo);
+  handleMessageError(aMessage, error);
 
   vTaskDelay(PACKET_SEND_DELAY);
   return;
