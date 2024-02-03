@@ -53,8 +53,6 @@ void udpSend(otInstance *aInstance,
 
   otError error = otUdpSend(aInstance, aSocket, aMessage, aMessageInfo);
   handleMessageError(aMessage, error);
-
-  vTaskDelay(PACKET_SEND_DELAY);
   return;
 }
 
@@ -77,6 +75,7 @@ void udpSendInfinite(otInstance *aInstance, uint16_t port, uint16_t destPort) {
 
   while (true) {
     udpSend(aInstance, port, destPort, aSocket, &aMessageInfo);
+    vTaskDelay(PACKET_SEND_DELAY);
   }
   return;
 }
