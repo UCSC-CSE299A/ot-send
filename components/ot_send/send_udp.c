@@ -44,7 +44,8 @@ void udpSend(otInstance *aInstance,
              uint16_t port,
              uint16_t destPort,
              otUdpSocket *aSocket,
-             otMessageInfo *aMessageInfo) {
+             otMessageInfo *aMessageInfo)
+{
   otMessage *aMessage = otUdpNewMessage(aInstance, NULL);
 
   int count = udpAttachPayload(aMessage);
