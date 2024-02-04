@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "ot_send.h"
+#include "led.h"
 
 #define MAX_CHARS 22
 
@@ -74,7 +75,11 @@ void udpSendInfinite(otInstance *aInstance, uint16_t port, uint16_t destPort) {
   handleError(otIp6AddressFromString(MLEID_MULTICAST, peerAddr));
 
   while (true) {
+    setLed(ON);
+    vTaskDelay(SEND_WAIT_TIME);
     udpSend(aInstance, port, destPort, aSocket, &aMessageInfo);
+
+    setLed(OFF);
     vTaskDelay(PACKET_SEND_DELAY);
   }
   return;

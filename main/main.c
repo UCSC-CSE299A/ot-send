@@ -23,6 +23,7 @@
  * while OpenThread is running.
 */
 void ledFlashWorker() {
+  setLed(OFF);
   while (true) {
     flashLed();
   }

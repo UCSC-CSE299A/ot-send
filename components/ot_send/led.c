@@ -17,10 +17,11 @@
 #define INDEX 0
 
 /**
- * LED color will be a light blue.
+ * LED color will be a light purple. I got the color from:
+ * https://hslpicker.com/#33001e
 */
-#define HUE 100
-#define SATURATION 150
+#define HUE 255
+#define SATURATION 0
 #define VALUE 10
 
 /**
