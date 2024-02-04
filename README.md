@@ -11,27 +11,15 @@ You will first need to form a Thread WLAN with at least two devices.
 
 On the sending device, wait until it has successfully connected to the Thread WLAN. If the sending device is working properly, you should expect the following output, which will keep printing in an infinite loop:
 ```
-I(49027) OPENTHREAD:[N] Platform------: ************************************
-I(49027) OPENTHREAD:[N] Platform------: UDP packet successfully sent.
-I(49027) OPENTHREAD:[N] Platform------: ************************************
+I(1786) OPENTHREAD:[N] Platform------: Sent UDP packet 0
+I(6786) OPENTHREAD:[N] Platform------: Sent UDP packet 1
+I(11786) OPENTHREAD:[N] Platform------: Sent UDP packet 2
+I(16786) OPENTHREAD:[N] Platform------: Sent UDP packet 3
 ```
 
-All other devices in the networks will act as the receivers. Set up the UDP socket on each receiving device to listen to port `12345`.
-```bash
-udp open
-udp bind :: 1235
-```
+Note that the `Packet Number` may vary depending on when you have created the UDP socket. Furthermore, the built-in LED will flash whenever a packet is successfully sent.
 
-You should then to expect to see the following output from each of the devices:
-```
-22 bytes from fdc2:53d3:bb7e:2437:a847:67e6:f17e:f186 12345 Packet Number 1
-22 bytes from fdc2:53d3:bb7e:2437:a847:67e6:f17e:f186 12345 Packet Number 2
-22 bytes from fdc2:53d3:bb7e:2437:a847:67e6:f17e:f186 12345 Packet Number 3
-22 bytes from fdc2:53d3:bb7e:2437:a847:67e6:f17e:f186 12345 Packet Number 4
-...
-```
-
-Note that the `Packet Number` may vary depending on when you have created the UDP socket.
+The implementation for the UDP receiver can be found in its [respective Github repository](https://github.com/UCSC-CSE299A/ot-receive).
 
 ## Enabling Automatic Start
 
