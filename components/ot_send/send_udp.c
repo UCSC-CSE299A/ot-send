@@ -1,9 +1,12 @@
 #include <stdio.h>
+#include <string.h>
+#include <inttypes.h>
+#include <stdint.h>
 
 #include "ot_send.h"
 #include "led.h"
 
-#define MAX_CHARS 22
+#define MAX_CHARS 40
 
 otError handleError(otError error) {
   if (error != OT_ERROR_NONE) {
@@ -27,17 +30,16 @@ otUdpSocket *udpCreateSocket(otInstance *aInstance, otSockAddr *aSockName) {
   return aSocket;
 }
 
-int udpAttachPayload(otMessage *aMessage) {
-  static int count = 0;
+uint16_t udpAttachPayload(otMessage *aMessage) {
+  static uint16_t count = 0;
 
-  char* payload = calloc(MAX_CHARS, sizeof(char));
-  sprintf(payload, "Packet Number %d", count);
+  char payload[MAX_CHARS];
+  sprintf(payload, "Packet number %" PRIu16 "", count);
   count += 1;
 
   otError error = otMessageAppend(aMessage, payload, MAX_CHARS * sizeof(char));
   handleMessageError(aMessage, error);
 
-  free(payload);
   return count - 1;
 }
 
