@@ -71,7 +71,6 @@ void udpSendInfinite(otInstance *aInstance, uint16_t port, uint16_t destPort) {
   aMessageInfo.mSockAddr = *otThreadGetMeshLocalEid(aInstance);
   aMessageInfo.mSockPort = port;
   aMessageInfo.mPeerPort = destPort;
-  aMessageInfo.mLinkInfo = NULL;
   aMessageInfo.mHopLimit = 0;  // default
   otIp6Address *peerAddr = &(aMessageInfo.mPeerAddr);
   handleError(otIp6AddressFromString(MLEID_MULTICAST, peerAddr));
