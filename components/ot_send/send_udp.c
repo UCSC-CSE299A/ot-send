@@ -22,12 +22,13 @@ void handleMessageError(otMessage *aMessage, otError error) {
   return;
 }
 
-otUdpSocket *udpCreateSocket(otInstance *aInstance, otSockAddr *aSockName) {
-  otUdpSocket *aSocket = calloc(1, sizeof(otUdpSocket));
+void *udpCreateSocket(otUdpSocket *aSocket,
+                      otInstance *aInstance,
+                      otSockAddr *aSockName)
+{
   handleError(otUdpOpen(aInstance, aSocket, NULL, NULL));
-
   handleError(otUdpBind(aInstance, aSocket, aSockName, OT_NETIF_THREAD));
-  return aSocket;
+  return;
 }
 
 uint16_t udpAttachPayload(otMessage *aMessage) {
@@ -65,7 +66,9 @@ void udpSendInfinite(otInstance *aInstance, uint16_t port, uint16_t destPort) {
   otSockAddr aSockName;
   aSockName.mAddress = *otThreadGetMeshLocalEid(aInstance);
   aSockName.mPort = port;
-  otUdpSocket *aSocket = udpCreateSocket(aInstance, &aSockName);
+
+  otUdpSocket aSocket;
+  udpCreateSocket(&aSocket, aInstance, &aSockName);
 
   otMessageInfo aMessageInfo;
   aMessageInfo.mSockAddr = *otThreadGetMeshLocalEid(aInstance);
@@ -78,7 +81,7 @@ void udpSendInfinite(otInstance *aInstance, uint16_t port, uint16_t destPort) {
   while (true) {
     setLed(ON);
     vTaskDelay(SEND_WAIT_TIME);
-    udpSend(aInstance, port, destPort, aSocket, &aMessageInfo);
+    udpSend(aInstance, port, destPort, &aSocket, &aMessageInfo);
 
     setLed(OFF);
     vTaskDelay(PACKET_SEND_DELAY);
