@@ -4,7 +4,6 @@
 #include <stdint.h>
 
 #include "ot_send.h"
-#include "led.h"
 
 #define MAX_CHARS 40
 
@@ -22,7 +21,7 @@ void handleMessageError(otMessage *aMessage, otError error) {
   return;
 }
 
-void *udpCreateSocket(otUdpSocket *aSocket,
+void udpCreateSocket(otUdpSocket *aSocket,
                       otInstance *aInstance,
                       otSockAddr *aSockName)
 {
@@ -60,7 +59,10 @@ void udpSend(otInstance *aInstance,
   return;
 }
 
-void udpSendInfinite(otInstance *aInstance, uint16_t port, uint16_t destPort) {
+void udpSendInfinite(otInstance *aInstance,
+                     uint16_t port,
+                     uint16_t destPort,
+                     Led* led) {
   checkConnection(aInstance);
 
   otSockAddr aSockName;
@@ -79,11 +81,11 @@ void udpSendInfinite(otInstance *aInstance, uint16_t port, uint16_t destPort) {
   handleError(otIp6AddressFromString(MLEID_MULTICAST, peerAddr));
 
   while (true) {
-    setLed(ON);
+    setLed(led, ON);
     vTaskDelay(SEND_WAIT_TIME);
     udpSend(aInstance, port, destPort, &aSocket, &aMessageInfo);
 
-    setLed(OFF);
+    setLed(led, OFF);
     vTaskDelay(PACKET_SEND_DELAY);
   }
   return;

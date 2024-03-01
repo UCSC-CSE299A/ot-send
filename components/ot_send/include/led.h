@@ -28,9 +28,10 @@ typedef struct led {
 
 typedef struct Led led;
 
-void initLed(void);
-void flashLed(void);
-void configureLed(void);
-void setLed(bool ledOn);
+void initLed(Led *led);
+void flashLed(Led *led);
+void configureLed(Led *led);
+void setLed(Led *led, bool ledOn);
+void freeLed(Led *led);
 
 #endif

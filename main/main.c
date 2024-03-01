@@ -22,10 +22,11 @@
  * A seperate worker thread will keep flashing the built-in LED
  * while OpenThread is running.
 */
-void ledFlashWorker() {
-  setLed(OFF);
+void ledFlashWorker(void* param) {
+  Led *led = (Led *) param;
+  setLed(led, OFF);
   while (true) {
-    flashLed();
+    flashLed(led);
   }
   return;
 }
@@ -44,14 +45,20 @@ void app_main(void)
     ESP_ERROR_CHECK(esp_event_loop_create_default());
     ESP_ERROR_CHECK(esp_netif_init());
     ESP_ERROR_CHECK(esp_vfs_eventfd_register(&eventfd_config));
+
+    Led led;
+    initLed(&led);
+    configureLed(&led);
+
     xTaskCreate(ot_task_worker, "ot_cli_main", STACK_DEPTH,
                 xTaskGetCurrentTaskHandle(), OT_WORKER_PRIORIY, NULL);
 
-    initLed();
-    configureLed();
     xTaskCreate(ledFlashWorker, "led_flash_worker", STACK_DEPTH,
-                xTaskGetCurrentTaskHandle(), LED_WORKER_PRIORITY, NULL);
+                (void *) &led, LED_WORKER_PRIORITY, NULL);
 
-    udpSendInfinite(esp_openthread_get_instance(), UDP_SOCK_PORT, UDP_DEST_PORT);
+    udpSendInfinite(esp_openthread_get_instance(),
+                    UDP_SOCK_PORT, UDP_DEST_PORT, &led);
+
+    freeLed(&led);
     return;
 }
