@@ -1,4 +1,10 @@
-menu "OpenThread CLI Example"
+#
+# The following resource taught me how to use KConfig
+# to create `menuconfig` options:
+# https://medium.com/@bhautik.markeye/esp-idf-configuration-how-to-add-custom-configuration-in-project-config-728f81b8d0d8.
+#
+
+menu "CSE 299A OpenThread Sender"
 
     config OPENTHREAD_AUTO_START
         bool 'Enable the automatic start mode.'
@@ -6,4 +12,11 @@ menu "OpenThread CLI Example"
         help
             If enabled, the Openthread Device will create or connect to thread network with pre-configured
             network parameters automatically. Otherwise, user need to configure Thread via CLI command manually.
+
+    config LED_ENABLED
+        bool 'Enable the LED to flash whenever a packet is sent.'
+        default False
+        help
+            If enabled, the LED will flash whenever a packet is sent.
+
 endmenu

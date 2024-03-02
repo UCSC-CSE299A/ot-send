@@ -47,14 +47,16 @@ void app_main(void)
     ESP_ERROR_CHECK(esp_vfs_eventfd_register(&eventfd_config));
 
     Led led;
+
+#if CONFIG_LED_ENABLED
     initLed(&led);
     configureLed(&led);
+    xTaskCreate(ledFlashWorker, "led_flash_worker", STACK_DEPTH,
+                (void *) &led, LED_WORKER_PRIORITY, NULL);
+#endif // CONFIG_LED_ENABLED
 
     xTaskCreate(ot_task_worker, "ot_cli_main", STACK_DEPTH,
                 xTaskGetCurrentTaskHandle(), OT_WORKER_PRIORIY, NULL);
-
-    xTaskCreate(ledFlashWorker, "led_flash_worker", STACK_DEPTH,
-                (void *) &led, LED_WORKER_PRIORITY, NULL);
 
     udpSendInfinite(esp_openthread_get_instance(),
                     UDP_SOCK_PORT, UDP_DEST_PORT, &led);
