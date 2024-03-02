@@ -21,6 +21,21 @@ Note that the `Packet Number` may vary depending on when you have created the UD
 
 The implementation for the UDP receiver can be found in its [respective Github repository](https://github.com/UCSC-CSE299A/ot-receive).
 
+## Enabling the LED
+
+If you would like the built-in LED to flash whenever a packet is sent, enter:
+
+```bash
+idf.py menuconfig
+```
+
+and navigate to:
+```
+CSE 299A OpenThread Sender → Enable the LED to flash whenever a packet is sent
+```
+
+to turn on the LED.
+
 ## Enabling Automatic Start
 
 The `UART` port must be used in order to enable automatic start of sending UDP packets without turning on the serial monitor. The `USB-Serial` port should not be utilized.
