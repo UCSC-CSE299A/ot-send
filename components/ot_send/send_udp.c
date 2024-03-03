@@ -5,8 +5,6 @@
 
 #include "ot_send.h"
 
-#define MAX_CHARS 40
-
 otError handleError(otError error) {
   if (error != OT_ERROR_NONE) {
     ERROR_PRINT(otLogCritPlat("%s", otThreadErrorToString(error)));
@@ -30,14 +28,16 @@ void udpCreateSocket(otUdpSocket *aSocket,
   return;
 }
 
-uint16_t udpAttachPayload(otMessage *aMessage) {
-  static uint16_t count = 0;
+uint32_t udpAttachPayload(otMessage *aMessage) {
+  static uint32_t count = 0;
 
-  char payload[MAX_CHARS];
-  sprintf(payload, "Packet number %" PRIu16 "", count);
+  char payload[PAYLOAD_SIZE];
+  EmptyMemory(payload, PAYLOAD_SIZE);
+
+  sprintf(payload, "Packet number %" PRIu32 "", count);
   count += 1;
 
-  otError error = otMessageAppend(aMessage, payload, MAX_CHARS * sizeof(char));
+  otError error = otMessageAppend(aMessage, payload, PAYLOAD_SIZE);
   handleMessageError(aMessage, error);
 
   return count - 1;

@@ -28,11 +28,17 @@
 #include "openthread/tasklet.h"
 #include "openthread/udp.h"
 
-#define DEBUG true
-#define DELIMITER "************************************"
-#define PRINT_DELIMIER otLogNotePlat(DELIMITER)
-#define DEBUG_PRINT(ot_note) PRINT_DELIMIER; ot_note; PRINT_DELIMIER;
-#define ERROR_PRINT(ot_error) otLogCritPlat(DELIMITER); ot_error; otLogCritPlat(DELIMITER);
+/**
+ * Each send packet will have the following payload:
+ * 
+ *    "Packet Number [uint_32t]"
+ *
+ * Substring "Packet Number " makes up 14 bytes.
+ * A 32 bit integers is 4 bytes long.
+ *
+ * Thus, the total payload isze is 14 + 4 = 18 bytes.
+*/
+#define PAYLOAD_SIZE 18
 
 #define MS_TO_TICKS(ms) ms / portTICK_PERIOD_MS
 #define DEFAULT_WAIT_TIME MS_TO_TICKS(100)
@@ -49,6 +55,18 @@
 #define UDP_SOCK_PORT 12345
 #define UDP_DEST_PORT 54321
 
+/**
+ * Empties all memory for `size` bytes starting at memory address `pointer`.
+ *
+ * @param[in] pointer: the pointer of the stack memory
+ * @param[in] size:    the size of the memory that `pointer` points to
+ *
+ * I got the idea to use `memset()` to clear stack memory from
+ * the Google Search AI:
+ * https://docs.google.com/document/d/1o-NaEOA-vzWPCv7VX1dONUfwos2epveDk4H_Y2Y5g1Y/edit?usp=sharing
+*/
+#define EmptyMemory(pointer, size) memset((void *) pointer, 0, size)
+
 void ot_task_worker(void *aContext);
 
 void udpSendInfinite(otInstance *aInstance,
@@ -57,5 +75,11 @@ void udpSendInfinite(otInstance *aInstance,
                      Led* led);
 
 void checkConnection(otInstance *aInstance);
+
+#define DEBUG true
+#define DELIMITER "************************************"
+#define PRINT_DELIMIER otLogNotePlat(DELIMITER)
+#define DEBUG_PRINT(ot_note) PRINT_DELIMIER; ot_note; PRINT_DELIMIER;
+#define ERROR_PRINT(ot_error) otLogCritPlat(DELIMITER); ot_error; otLogCritPlat(DELIMITER);
 
 #endif // ESP_OT_SEND_
