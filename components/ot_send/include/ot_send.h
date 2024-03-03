@@ -34,11 +34,14 @@
  *    "Packet Number [uint_32t]"
  *
  * Substring "Packet Number " makes up 14 bytes.
- * A 32 bit integers is 4 bytes long.
  *
- * Thus, the total payload isze is 14 + 4 = 18 bytes.
+ * The 32 bit integer will be represented as a string.
+ * 2^32 - 1 = 4294967295 has 10 digits, and thus, the
+ * string representation of the uint32_t will make up 10 bytes.
+ *
+ * Thus, the total payload isze is 14 + 10 = 24 bytes.
 */
-#define PAYLOAD_SIZE 18
+#define PAYLOAD_SIZE 24
 
 #define MS_TO_TICKS(ms) ms / portTICK_PERIOD_MS
 #define DEFAULT_WAIT_TIME MS_TO_TICKS(100)
