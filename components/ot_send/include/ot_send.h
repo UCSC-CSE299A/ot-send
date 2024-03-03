@@ -50,7 +50,7 @@
 /**
  * https://openthread.io/guides/thread-primer/ipv6-addressing#multicast
 */
-#define MLEID_MULTICAST "ff03::1"
+#define RECEIVER_ADDRESS CONFIG_RECEIVER_ADDRESS
 
 #define UDP_SOCK_PORT 12345
 #define UDP_DEST_PORT 54321

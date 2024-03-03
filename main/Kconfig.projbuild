@@ -13,6 +13,14 @@ menu "CSE 299A OpenThread Sender"
             If enabled, the Openthread Device will create or connect to thread network with pre-configured
             network parameters automatically. Otherwise, user need to configure Thread via CLI command manually.
 
+    config RECEIVER_ADDRESS
+        string 'The IPv6 address of the receiver to send packets to.'
+        default "ff03::1"
+        help
+          The IPv6 address of the receiver to send packets to. By default,
+          the sender will send packets to every FTD and MTD through the
+          'ff03::1' multicast address.
+
     config LED_ENABLED
         bool 'Enable the LED to flash whenever a packet is sent.'
         default False

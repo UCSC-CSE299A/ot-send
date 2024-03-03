@@ -78,7 +78,7 @@ void udpSendInfinite(otInstance *aInstance,
   aMessageInfo.mPeerPort = destPort;
   aMessageInfo.mHopLimit = 0;  // default
   otIp6Address *peerAddr = &(aMessageInfo.mPeerAddr);
-  handleError(otIp6AddressFromString(MLEID_MULTICAST, peerAddr));
+  handleError(otIp6AddressFromString(RECEIVER_ADDRESS, peerAddr));
 
   while (true) {
 #if CONFIG_LED_ENABLED
