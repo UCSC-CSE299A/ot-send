@@ -61,6 +61,8 @@ void app_main(void)
     udpSendInfinite(esp_openthread_get_instance(),
                     UDP_SOCK_PORT, UDP_DEST_PORT, &led);
 
+#if CONFIG_LED_ENABLED
     freeLed(&led);
+#endif
     return;
 }
