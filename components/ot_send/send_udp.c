@@ -82,7 +82,6 @@ void udpSendInfinite(otInstance *aInstance,
 
   while (true) {
     setLed(led, ON);
-    vTaskDelay(SEND_WAIT_TIME);
     udpSend(aInstance, port, destPort, &aSocket, &aMessageInfo);
 
     setLed(led, OFF);
