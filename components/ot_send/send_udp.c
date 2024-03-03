@@ -81,10 +81,16 @@ void udpSendInfinite(otInstance *aInstance,
   handleError(otIp6AddressFromString(MLEID_MULTICAST, peerAddr));
 
   while (true) {
+#if CONFIG_LED_ENABLED
     setLed(led, ON);
+#endif
+
     udpSend(aInstance, port, destPort, &aSocket, &aMessageInfo);
 
+#if CONFIG_LED_ENABLED
     setLed(led, OFF);
+#endif
+
     vTaskDelay(PACKET_SEND_DELAY);
   }
   return;
