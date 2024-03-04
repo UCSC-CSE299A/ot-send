@@ -1,9 +1,9 @@
+#include "ot_send.h"
+
 #include <stdio.h>
 #include <string.h>
 #include <inttypes.h>
 #include <stdint.h>
-
-#include "ot_send.h"
 
 otError handleError(otError error) {
   if (error != OT_ERROR_NONE) {
