@@ -61,18 +61,18 @@ void udpSend(otInstance *aInstance,
 
 void udpSendInfinite(otInstance *aInstance,
                      uint16_t port,
-                     uint16_t destPort) {
+                     uint16_t destPort,
+                     otSockAddr *aSockName,
+                     otUdpSocket *aSocket)
+{
   checkConnection(aInstance);
 
-  otSockAddr aSockName;
-  aSockName.mAddress = *otThreadGetMeshLocalEid(aInstance);
-  aSockName.mPort = port;
-
-  otUdpSocket aSocket;
-  udpCreateSocket(&aSocket, aInstance, &aSockName);
+  aSockName->mAddress = *otThreadGetMeshLocalEid(aInstance);
+  aSockName->mPort = port;
+  udpCreateSocket(aSocket, aInstance, aSockName);
 
   otMessageInfo aMessageInfo;
-  aMessageInfo.mSockAddr = *otThreadGetMeshLocalEid(aInstance);
+  aMessageInfo.mSockAddr = aSockName->mAddress;
   aMessageInfo.mSockPort = port;
   aMessageInfo.mPeerPort = destPort;
   aMessageInfo.mHopLimit = 0;  // default
@@ -80,7 +80,7 @@ void udpSendInfinite(otInstance *aInstance,
   handleError(otIp6AddressFromString(RECEIVER_ADDRESS, peerAddr));
 
   while (true) {
-    udpSend(aInstance, port, destPort, &aSocket, &aMessageInfo);
+    udpSend(aInstance, port, destPort, aSocket, &aMessageInfo);
     vTaskDelay(PACKET_SEND_DELAY);
   }
   return;

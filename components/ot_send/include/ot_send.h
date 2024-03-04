@@ -73,7 +73,9 @@ void ot_task_worker(void *aContext);
 
 void udpSendInfinite(otInstance *aInstance,
                      uint16_t port,
-                     uint16_t destPort);
+                     uint16_t destPort,
+                     otSockAddr *aSockName,
+                     otUdpSocket *aSocket);
 
 void checkConnection(otInstance *aInstance);
 
