@@ -80,6 +80,7 @@ void udpSendInfinite(otInstance *aInstance,
                      otUdpSocket *aSocket);
 
 void checkConnection(otInstance *aInstance);
+void setTxPower();
 
 #define DEBUG true
 #define DELIMITER "************************************"
