@@ -35,8 +35,6 @@ void app_main(void)
     xTaskCreate(ot_task_worker, "ot_cli_main", STACK_DEPTH,
                 xTaskGetCurrentTaskHandle(), OT_WORKER_PRIORIY, NULL);
 
-    setTxPower();
-
     otSockAddr aSockName;
     otUdpSocket aSocket;
     udpSendInfinite(esp_openthread_get_instance(),
