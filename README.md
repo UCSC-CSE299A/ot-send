@@ -21,9 +21,9 @@ Note that the `Packet Number` may vary depending on when you have created the UD
 
 The implementation for the UDP receiver can be found in its [respective Github repository](https://github.com/UCSC-CSE299A/ot-receive).
 
-## Enabling the LED
+## Changing the TX Power
 
-If you would like the built-in LED to flash whenever a packet is sent, enter:
+If you would like to change the 802.15.4 transmission power used by OpenThread, enter:
 
 ```bash
 idf.py menuconfig
@@ -31,10 +31,10 @@ idf.py menuconfig
 
 and navigate to:
 ```
-CSE 299A OpenThread Sender → Enable the LED to flash whenever a packet is sent
+CSE 299A OpenThread Sender → Set the 802.15.4 TX power used by OpenThread
 ```
 
-to turn on the LED.
+to enter the TX Power (in dBm) that you would like to use.
 
 ## Enabling Automatic Start
 
