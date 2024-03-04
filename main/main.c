@@ -39,7 +39,6 @@ void app_main(void)
 
     otSockAddr aSockName;
     otUdpSocket aSocket;
-
     udpSendInfinite(esp_openthread_get_instance(),
                     UDP_SOCK_PORT, UDP_DEST_PORT,
                     &aSockName, &aSocket);
