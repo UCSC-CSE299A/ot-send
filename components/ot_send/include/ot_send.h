@@ -3,7 +3,6 @@
 
 #include "esp_ot_config.h"
 #include "ot_send.h"
-#include "led.h"
 #include <openthread/logging.h>
 
 #include "esp_err.h"
@@ -74,8 +73,7 @@ void ot_task_worker(void *aContext);
 
 void udpSendInfinite(otInstance *aInstance,
                      uint16_t port,
-                     uint16_t destPort,
-                     Led* led);
+                     uint16_t destPort);
 
 void checkConnection(otInstance *aInstance);
 

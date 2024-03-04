@@ -12,24 +12,10 @@
  * CONDITIONS OF ANY KIND, either express or implied.
 */
 #include "ot_send.h"
-#include "led.h"
 
 #define STACK_DEPTH 10240
 #define OT_WORKER_PRIORIY 5
 #define LED_WORKER_PRIORITY 5
-
-/**
- * A seperate worker thread will keep flashing the built-in LED
- * while OpenThread is running.
-*/
-void ledFlashWorker(void* param) {
-  Led *led = (Led *) param;
-  setLed(led, OFF);
-  while (true) {
-    flashLed(led);
-  }
-  return;
-}
 
 void app_main(void)
 {
@@ -46,23 +32,10 @@ void app_main(void)
     ESP_ERROR_CHECK(esp_netif_init());
     ESP_ERROR_CHECK(esp_vfs_eventfd_register(&eventfd_config));
 
-    Led led;
-
-#if CONFIG_LED_ENABLED
-    initLed(&led);
-    configureLed(&led);
-    xTaskCreate(ledFlashWorker, "led_flash_worker", STACK_DEPTH,
-                (void *) &led, LED_WORKER_PRIORITY, NULL);
-#endif // CONFIG_LED_ENABLED
-
     xTaskCreate(ot_task_worker, "ot_cli_main", STACK_DEPTH,
                 xTaskGetCurrentTaskHandle(), OT_WORKER_PRIORIY, NULL);
 
     udpSendInfinite(esp_openthread_get_instance(),
-                    UDP_SOCK_PORT, UDP_DEST_PORT, &led);
-
-#if CONFIG_LED_ENABLED
-    freeLed(&led);
-#endif
+                    UDP_SOCK_PORT, UDP_DEST_PORT);
     return;
 }

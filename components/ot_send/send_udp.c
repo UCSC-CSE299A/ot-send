@@ -61,8 +61,7 @@ void udpSend(otInstance *aInstance,
 
 void udpSendInfinite(otInstance *aInstance,
                      uint16_t port,
-                     uint16_t destPort,
-                     Led* led) {
+                     uint16_t destPort) {
   checkConnection(aInstance);
 
   otSockAddr aSockName;
@@ -81,16 +80,7 @@ void udpSendInfinite(otInstance *aInstance,
   handleError(otIp6AddressFromString(RECEIVER_ADDRESS, peerAddr));
 
   while (true) {
-#if CONFIG_LED_ENABLED
-    setLed(led, ON);
-#endif
-
     udpSend(aInstance, port, destPort, &aSocket, &aMessageInfo);
-
-#if CONFIG_LED_ENABLED
-    setLed(led, OFF);
-#endif
-
     vTaskDelay(PACKET_SEND_DELAY);
   }
   return;

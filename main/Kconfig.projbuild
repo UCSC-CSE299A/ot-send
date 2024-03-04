@@ -21,10 +21,4 @@ menu "CSE 299A OpenThread Sender"
           the sender will send packets to every FTD and MTD through the
           'ff03::1' multicast address.
 
-    config LED_ENABLED
-        bool 'Enable the LED to flash whenever a packet is sent.'
-        default False
-        help
-            If enabled, the LED will flash whenever a packet is sent.
-
 endmenu
