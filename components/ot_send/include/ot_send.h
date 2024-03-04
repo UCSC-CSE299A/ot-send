@@ -50,9 +50,11 @@
 #define OT_DISCONNECTED(role) (role == OT_DEVICE_ROLE_DISABLED) || (role == OT_DEVICE_ROLE_DETACHED)
 
 /**
+ * The sender will broadcast packets using the multicast address.
+ *
  * https://openthread.io/guides/thread-primer/ipv6-addressing#multicast
 */
-#define RECEIVER_ADDRESS CONFIG_RECEIVER_ADDRESS
+#define RECEIVER_ADDRESS "ff03::1"
 
 #define UDP_SOCK_PORT 12345
 #define UDP_DEST_PORT 54321
