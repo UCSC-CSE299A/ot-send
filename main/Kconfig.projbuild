@@ -4,7 +4,7 @@
 # https://medium.com/@bhautik.markeye/esp-idf-configuration-how-to-add-custom-configuration-in-project-config-728f81b8d0d8.
 #
 
-menu "CSE 299A OpenThread Sender"
+menu "UCSC Thread-Ascon OpenThread Sender"
 
     config OPENTHREAD_AUTO_START
         bool 'Enable the automatic start mode.'
