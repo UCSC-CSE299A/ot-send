@@ -71,6 +71,11 @@ void udpSendInfinite(otInstance *aInstance,
   aSockName->mPort = port;
   udpCreateSocket(aSocket, aInstance, aSockName);
 
+  // To ensure consistency with "ot-receive", TX power
+  // is set IMMEDIATELY AFTER UDP socket is created.
+  //
+  setTxPower();
+
   otMessageInfo aMessageInfo;
   aMessageInfo.mSockAddr = aSockName->mAddress;
   aMessageInfo.mSockPort = port;
@@ -78,8 +83,6 @@ void udpSendInfinite(otInstance *aInstance,
   aMessageInfo.mHopLimit = 0;  // default
   otIp6Address *peerAddr = &(aMessageInfo.mPeerAddr);
   handleError(otIp6AddressFromString(RECEIVER_ADDRESS, peerAddr));
-
-  setTxPower();
 
   while (true) {
     udpSend(aInstance, port, destPort, aSocket, &aMessageInfo);
