@@ -1,3 +1,7 @@
+#
+# Automatically generated file. DO NOT EDIT.
+# Espressif IoT Development Framework (ESP-IDF) 5.3.0 Project Configuration
+#
 CONFIG_SOC_ADC_SUPPORTED=y
 CONFIG_SOC_ANA_CMPR_SUPPORTED=y
 CONFIG_SOC_DEDICATED_GPIO_SUPPORTED=y
@@ -480,7 +484,7 @@ CONFIG_ESPTOOLPY_MONITOR_BAUD=115200
 #
 # Ascon-OpenThread Encryption
 #
-CONFIG_THREAD_ASCON_CIPHER_SUITE=3
+CONFIG_THREAD_ASCON_CIPHER_SUITE=2
 CONFIG_THREAD_ASCON_DEBUG_ENABLED=0
 # end of Ascon-OpenThread Encryption
 
@@ -498,11 +502,11 @@ CONFIG_PARTITION_TABLE_MD5=y
 # end of Partition Table
 
 #
-# CSE 299A OpenThread Sender
+# UCSC Thread-Ascon OpenThread Sender
 #
 # CONFIG_OPENTHREAD_AUTO_START is not set
 CONFIG_TX_POWER=20
-# end of CSE 299A OpenThread Sender
+# end of UCSC Thread-Ascon OpenThread Sender
 
 #
 # Iperf Configuration
