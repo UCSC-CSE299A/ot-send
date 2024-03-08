@@ -79,6 +79,8 @@ void udpSendInfinite(otInstance *aInstance,
   otIp6Address *peerAddr = &(aMessageInfo.mPeerAddr);
   handleError(otIp6AddressFromString(RECEIVER_ADDRESS, peerAddr));
 
+  setTxPower();
+
   while (true) {
     udpSend(aInstance, port, destPort, aSocket, &aMessageInfo);
     vTaskDelay(PACKET_SEND_DELAY);
