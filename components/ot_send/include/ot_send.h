@@ -88,4 +88,4 @@ void setTxPower();
 #define DEBUG_PRINT(ot_note) PRINT_DELIMIER; ot_note; PRINT_DELIMIER;
 #define ERROR_PRINT(ot_error) otLogCritPlat(DELIMITER); ot_error; otLogCritPlat(DELIMITER);
 
-#endif // ESP_OT_SEND_
+#endif // OT_SEND_
